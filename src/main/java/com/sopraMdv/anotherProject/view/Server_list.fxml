@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="Server_list" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="877.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sopraMdv.anotherProject.Controller.ServerListController">
+   <children>
+      <Pane layoutY="70.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="522.0" prefWidth="881.0" style="-fx-border-color: black; -fx-border-width: 0 0 0.05 0;">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="366.0" layoutY="416.0" onMouseClicked="#editserver" prefHeight="40.0" prefWidth="150.0" style="-fx-border-color: #3498DB; -fx-border-width: 0.5; -fx-border-radius: 50; -fx-background-radius: 50;" styleClass="mainbutton" text="modifier" textFill="#6e6e6e">
+               <font>
+                  <Font name="Verdana" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="idlabel" layoutX="561.0" layoutY="18.0" textFill="TRANSPARENT" />
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="166.0" layoutY="416.0" onMouseClicked="#deleteserver" prefHeight="40.0" prefWidth="150.0" style="-fx-border-color: #3498DB; -fx-border-width: 0.5; -fx-border-radius: 50; -fx-background-radius: 50;" styleClass="mainbutton" text="Supprimer" textFill="#6e6e6e">
+               <font>
+                  <Font name="Verdana" size="14.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="566.0" layoutY="416.0" onMouseClicked="#connectserver" prefHeight="40.0" prefWidth="150.0" style="-fx-border-color: #3498DB; -fx-border-width: 0.5; -fx-border-radius: 50; -fx-background-radius: 50;" styleClass="mainbutton" text="bases de données" textFill="#6e6e6e">
+               <font>
+                  <Font name="Verdana" size="14.0" />
+               </font>
+            </Label>
+            <Pane layoutX="245.0" layoutY="80.0" prefHeight="302.0" prefWidth="496.0">
+               <children>
+                  <Label fx:id="label1" layoutX="246.0" layoutY="11.0" prefHeight="28.0" prefWidth="205.0" text="Environnement" textFill="#3ca9e7">
+                     <font>
+                        <Font name="Verdana" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="descenvlabel" layoutX="43.0" layoutY="11.0" prefHeight="28.0" prefWidth="125.0" text="Nom " textFill="#a2a2a4">
+                     <font>
+                        <Font name="Verdana" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="label2" layoutX="246.0" layoutY="43.0" prefHeight="28.0" prefWidth="205.0" text="Environnement" textFill="#3ca9e7">
+                     <font>
+                        <Font name="Verdana" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="descenvlabel1" layoutX="43.0" layoutY="43.0" prefHeight="28.0" prefWidth="125.0" text="Hôte" textFill="#a2a2a4">
+                     <font>
+                        <Font name="Verdana" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="label3" layoutX="246.0" layoutY="75.0" prefHeight="28.0" prefWidth="205.0" text="Environnement" textFill="#3ca9e7">
+                     <font>
+                        <Font name="Verdana" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="descenvlabel2" layoutX="43.0" layoutY="75.0" prefHeight="28.0" prefWidth="125.0" text="Système" textFill="#a2a2a4">
+                     <font>
+                        <Font name="Verdana" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="label7" layoutX="246.0" layoutY="107.0" prefHeight="28.0" prefWidth="205.0" text="Environnement" textFill="#3ca9e7">
+                     <font>
+                        <Font name="Verdana" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="descenvlabel21" layoutX="43.0" layoutY="107.0" prefHeight="28.0" prefWidth="176.0" text="Compte Core Banking" textFill="#a2a2a4">
+                     <font>
+                        <Font name="Verdana" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="label8" layoutX="246.0" layoutY="139.0" prefHeight="28.0" prefWidth="205.0" text="Environnement" textFill="#3ca9e7">
+                     <font>
+                        <Font name="Verdana" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="descenvlabel111" layoutX="43.0" layoutY="139.0" prefHeight="28.0" prefWidth="190.0" text="Répertoire Core Banking" textFill="#a2a2a4">
+                     <font>
+                        <Font name="Verdana" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="label9" layoutX="246.0" layoutY="171.0" prefHeight="28.0" prefWidth="205.0" text="Environnement" textFill="#3ca9e7">
+                     <font>
+                        <Font name="Verdana" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="descenvlabel4" layoutX="43.0" layoutY="171.0" prefHeight="28.0" prefWidth="125.0" text="Compte Genero" textFill="#a2a2a4">
+                     <font>
+                        <Font name="Verdana" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="label10" layoutX="246.0" layoutY="203.0" prefHeight="28.0" prefWidth="205.0" text="Environnement" textFill="#3ca9e7">
+                     <font>
+                        <Font name="Verdana" size="14.0" />
+                     </font>
+                  </Label>
+                
+                
+                  <Label fx:id="descenvlabel13" layoutX="43.0" layoutY="203.0" prefHeight="28.0" prefWidth="162.0" text="Répertoire Genero" textFill="#a2a2a4">
+                     <font>
+                        <Font name="Verdana" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+      <Label fx:id="nomenv" alignment="CENTER" contentDisplay="CENTER" layoutX="240.0" layoutY="42.0" prefHeight="56.0" prefWidth="401.0" text="Serveur" textFill="#6e6e6e">
+         <font>
+            <Font name="Verdana" size="28.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="serverimg" fitHeight="40.0" fitWidth="40.0" layoutX="316.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../../../Downloads/server.png" />
+         </image>
+      </ImageView>
+   </children>
+</Pane>

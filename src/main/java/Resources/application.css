@@ -1,0 +1,64 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+.banner{
+	-fx-background-color: linear-gradient(to left , #ff1d42 0%, #FF4E28 20%, #FF5F1E 51%, #FF9700 100%);
+} 
+.profilePane
+{
+	/*-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);*/
+  -fx-border-color : black; -fx-border-width : 0 0 0.1 0;
+}
+.logo
+{
+	-fx-background-image: url("logo.png");
+	-fx-background-repeat: stretch;   
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+	/*-fx-alignment: CENTER;
+	-fx-padding:0 0 0 50px  ;*/
+}
+.leftButtons{
+    /*-fx-font-family: 16px "Didact Gothic";*/
+}
+/*.leftButtons:hover{
+    -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-background-radius: 3px, 3px, 2px, 1px;
+    -fx-padding: 0.333333em 0.666667em 0.333333em 0.666667em; 
+    -fx-text-fill: -fx-text-base-color;
+    -fx-alignment: CENTER;
+    -fx-content-display: LEFT;
+}
+*/
+/*.textfield:hover{
+	-fx-highlight-fill: -fx-accent;
+    -fx-highlight-text-fill: #048FD8;
+    -fx-background-color: 
+        -fx-focus-color,
+        -fx-control-inner-background,
+        -fx-faint-focus-color,
+        linear-gradient(from 0px 0px to 0px 5px, derive(-fx-control-inner-background, -9%), -fx-control-inner-background);
+    -fx-background-insets: -0.2, 1, -1.4, 3;
+    -fx-background-radius: 3, 2, 4, 0;
+    -fx-prompt-text-fill: transparent;
+} */
+.leftButtons:hover{
+	-fx-text-fill: #3498DB;
+	-fx-border-color: #048FD8;
+	-fx-border-width : 0 0 0 2;
+}
+.profileImg{
+	-fx-background-image: url("profile.png");
+}
+.mainPane{
+	/*-fx-background-image: url("/ressources/annual_migration-wallpaper-3840x2400.jpg");*/
+	/*-fx-background-image: url("/ressources/2b.jpg");*/ 
+	-fx-background-image: url("1b.png");  
+	/*-fx-background-image: url("/ressources/NZ-Migration-Rose.jpg");*/
+	/*-fx-background-image: url("/ressources/migration_banner.jpg"); */
+	
+	-fx-background-size: cover; 
+	-fx-background-repeat: no-repeat;
+}
+.leftButtonClicked{
+	
+}

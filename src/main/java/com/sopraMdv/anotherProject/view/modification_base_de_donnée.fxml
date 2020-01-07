@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="DB_modifier" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="877.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sopraMdv.anotherProject.Controller.DB_modifierController">
+	<children>
+		<VBox layoutX="233.0" layoutY="191.0" prefHeight="266.0" prefWidth="412.0" spacing="10.0">
+			<children>
+				<TextField fx:id="hostDB" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="388.0" promptText="Host " />
+				<ComboBox fx:id="typeDB" prefHeight="32.0" prefWidth="388.0" promptText="Type" />
+				<TextField fx:id="sidDB" layoutX="20.0" layoutY="147.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="388.0" promptText="Oracle SID" />
+				<TextField fx:id="portDB" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="388.0" promptText="Port " />
+				<TextField fx:id="schemaDB" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="388.0" promptText="Schema DB" />
+				<PasswordField fx:id="passwordDB" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="388.0" promptText="Mot de passe " />
+			</children>
+			<padding>
+				<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+			</padding>
+		</VBox>
+		<Label alignment="CENTER" layoutX="245.0" layoutY="81.0" prefHeight="45.0" prefWidth="388.0" text="Base de données" textFill="#6e6e6e">
+			<font>
+				<Font size="34.0" />
+			</font>
+		</Label>
+				<Label alignment="CENTER" contentDisplay="CENTER" layoutX="463.0" layoutY="496.0" onMouseClicked="#editDB" prefHeight="40.0" prefWidth="150.0" style="-fx-border-color: #3498DB; -fx-border-width: 0.5; -fx-border-radius: 50; -fx-background-radius: 50;" styleClass="mainbutton" text="enregistrer" textFill="#6e6e6e">
+					<font>
+						<Font name="Verdana" size="15.0" />
+					</font>
+				</Label>
+				<Label fx:id="errorLabel" alignment="CENTER" layoutX="246.0" layoutY="115.0" prefHeight="80.0" prefWidth="388.0" textFill="#fc3333">
+         <font>
+            <Font name="Roboto Light" size="15.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="265.0" layoutY="496.0" onMouseClicked="#cancel" prefHeight="40.0" prefWidth="150.0" style="-fx-border-color: #3498DB; -fx-border-width: 0.5; -fx-border-radius: 50; -fx-background-radius: 50;" styleClass="mainbutton" text="annuler" textFill="#6e6e6e">
+         <font>
+            <Font name="Verdana" size="15.0" />
+         </font>
+      </Label>
+	</children>
+</Pane>

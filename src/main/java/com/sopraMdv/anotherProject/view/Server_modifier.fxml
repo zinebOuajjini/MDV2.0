@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="Server_modifier" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="877.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sopraMdv.anotherProject.Controller.Server_modifierController">
+   <children>
+      <VBox layoutX="232.0" layoutY="129.0" prefHeight="396.0" prefWidth="413.0" spacing="10.0">
+         <children>
+            <TextField fx:id="nameServ" alignment="CENTER" maxHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="388.0" promptText="Server Name">
+               <padding>
+                  <Insets top="2.0" />
+               </padding></TextField>
+           <!--  <TextArea prefHeight="30.0" prefWidth="388.0" promptText="Description" /> -->
+            <TextField fx:id="hostServ" alignment="CENTER" layoutX="20.0" layoutY="20.0" maxHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="393.0" promptText="Host">
+               <padding>
+                  <Insets top="2.0" />
+               </padding>
+            </TextField>
+            <ComboBox fx:id="platformOSServ" prefHeight="25.0" prefWidth="393.0" promptText="Système d'exploitation" />
+        
+            
+            <TextField fx:id="usernameEdit" alignment="CENTER" layoutX="20.0" layoutY="20.0" prefHeight="25.0" prefWidth="393.0" promptText="userName">
+					<padding>
+						<Insets top="2.0" />
+					</padding>
+				</TextField>
+				<PasswordField fx:id="passwordEdit" alignment="CENTER" prefHeight="25.0" prefWidth="393.0" promptText="Password">
+					<padding>
+						<Insets top="2.0" />
+					</padding>
+				</PasswordField>
+            
+            
+            
+            <TextField fx:id="userNameAmpServ" alignment="CENTER" layoutX="20.0" layoutY="20.0" prefHeight="25.0" prefWidth="393.0" promptText="Core Banking Administrator Account">
+               <padding>
+                  <Insets top="2.0" />
+               </padding>
+            </TextField>
+            <PasswordField fx:id="passwordAmp" alignment="CENTER" prefHeight="25.0" prefWidth="393.0" promptText="Password">
+               <padding>
+                  <Insets top="2.0" />
+               </padding></PasswordField>
+            <TextField fx:id="pathAmp" alignment="CENTER" layoutX="20.0" layoutY="20.0" prefHeight="25.0" prefWidth="393.0" promptText="Core Banking Root Directory">
+               <padding>
+                  <Insets top="2.0" />
+               </padding>
+            </TextField>
+            <TextField fx:id="userNameGenerServ" alignment="CENTER" layoutX="20.0" layoutY="20.0" prefHeight="25.0" prefWidth="388.0" promptText="Genero Administrator Account">
+               <padding>
+                  <Insets top="2.0" />
+               </padding>
+            </TextField>
+            <PasswordField fx:id="passwordGener" alignment="CENTER" layoutX="20.0" layoutY="288.0" prefHeight="25.0" promptText="Password">
+               <padding>
+                  <Insets top="2.0" />
+               </padding>
+            </PasswordField>
+            <TextField fx:id="pathGener" alignment="CENTER" layoutX="20.0" layoutY="20.0" prefHeight="25.0" prefWidth="388.0" promptText="Genero Root Directory">
+               <padding>
+                  <Insets top="2.0" />
+               </padding>
+            </TextField>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="238.0" layoutY="6.0" prefHeight="46.0" prefWidth="401.0" text="Serveur : modifier" textFill="#6e6e6e">
+         <font>
+            <Font name="Verdana" size="28.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="459.0" layoutY="537.0" onMouseClicked="#editserver" prefHeight="40.0" prefWidth="150.0" style="-fx-border-color: #3498DB; -fx-border-width: 0.5; -fx-border-radius: 50; -fx-background-radius: 50;" styleClass="mainbutton" text="enregistrer" textFill="#6e6e6e">
+         <font>
+            <Font name="Verdana" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="annuler" alignment="CENTER" contentDisplay="CENTER" layoutX="268.0" layoutY="537.0" onMouseClicked="#cancel" prefHeight="40.0" prefWidth="150.0" style="-fx-border-color: #3498DB; -fx-border-width: 0.5; -fx-border-radius: 50; -fx-background-radius: 50;" styleClass="mainbutton" text="annuler" textFill="#6e6e6e">
+         <font>
+            <Font name="Verdana" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="errorLabel" alignment="CENTER" layoutX="244.0" layoutY="51.0" prefHeight="80.0" prefWidth="388.0" textFill="#fc3333">
+         <font>
+            <Font name="Roboto Light" size="15.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

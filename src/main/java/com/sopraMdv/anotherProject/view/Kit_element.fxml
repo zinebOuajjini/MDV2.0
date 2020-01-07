@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="200.0" prefWidth="186.0" style="-fx-background-color: white; -fx-border-color: EDEDEF; -fx-background-radius: 5; -fx-border-radius: 10; -fx-border-width: 2.5;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sopraMdv.anotherProject.Controller.KitElementController">
+   <children>
+      <Label fx:id="chosebtn" alignment="CENTER" contentDisplay="CENTER" layoutX="41.0" layoutY="141.0" prefHeight="40.0" prefWidth="105.0" style="-fx-border-color: #3498DB; -fx-border-width: 0.5; -fx-border-radius: 50; -fx-background-radius: 50;" styleClass="mainbutton" text="consulter" textFill="#6e6e6e">
+         <font>
+            <Font name="Verdana" size="14.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="img" fitHeight="40.0" fitWidth="36.0" layoutX="75.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <Label fx:id="description" alignment="TOP_CENTER" contentDisplay="TOP" layoutX="20.0" layoutY="88.0" prefHeight="50.0" prefWidth="147.0" text="Description" textAlignment="CENTER" textFill="#a2a2a4">
+         <font>
+            <Font name="Verdana" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="idlabel" layoutX="171.0" layoutY="152.0" prefHeight="18.0" prefWidth="19.0" textFill="#2e2a2a00" />
+      <Label fx:id="nomKit" alignment="CENTER" contentDisplay="CENTER" layoutX="6.0" layoutY="54.0" prefHeight="28.0" prefWidth="174.0" text="KIT" textFill="#3ca9e7">
+         <font>
+            <Font name="Verdana" size="14.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

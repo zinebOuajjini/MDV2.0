@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="executionPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="644.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sopraMdv.anotherProject.Controller.ExecuteFileController">
+   <children>
+      <TextArea fx:id="queryProblem" layoutY="1.0" prefHeight="372.0" prefWidth="638.0" />
+      <TextArea fx:id="consoleLog" layoutY="427.0" prefHeight="172.0" prefWidth="638.0">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor></TextArea>
+      <Label fx:id="addLabel" alignment="CENTER" layoutX="175.0" layoutY="381.0" onMouseClicked="#addScript" prefHeight="40.0" prefWidth="120.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: #5b9fe5;" text="Exécuter" textFill="#5b9fe5">
+         <font>
+            <Font name="Roboto" size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Label>
+      <Label fx:id="continueLabel" alignment="CENTER" layoutX="495.0" layoutY="381.0" onMouseClicked="#stopScript" prefHeight="40.0" prefWidth="120.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: #5b9fe5;" text="Arrêter" textFill="#5b9fe5">
+         <font>
+            <Font name="Roboto" size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Label>
+      <Label fx:id="commentLabel" alignment="CENTER" layoutX="335.0" layoutY="381.0" onMouseClicked="#IgnoreScript" prefHeight="40.0" prefWidth="120.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: #5b9fe5;" text="Ignorer" textFill="#5b9fe5">
+         <font>
+            <Font name="Roboto" size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Label>
+      <Label fx:id="newquery" alignment="CENTER" layoutX="15.0" layoutY="381.0" onMouseClicked="#launchPopUp" prefHeight="40.0" prefWidth="120.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: #5b9fe5;" text="Nouveau" textFill="#5b9fe5">
+         <font>
+            <Font name="Roboto" size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Label>
+     
+   </children>
+</Pane>

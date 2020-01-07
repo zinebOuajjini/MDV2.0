@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="80.0" prefWidth="810.0" style="-fx-border-color: black; -fx-border-width: 0 0 0.1 0;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sopraMdv.anotherProject.Controller.HistoriqueElementController">
+   <children>
+      <Label fx:id="chosebtn" alignment="CENTER" contentDisplay="CENTER" layoutX="674.0" layoutY="20.0" prefHeight="40.0" prefWidth="105.0" style="-fx-border-color: #3498DB; -fx-border-width: 0.5; -fx-border-radius: 50; -fx-background-radius: 50;" styleClass="mainbutton" text="continuer" textFill="#6e6e6e">
+         <font>
+            <Font name="Verdana" size="14.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="deletebtn" fitHeight="40.0" fitWidth="19.0" layoutX="610.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../../../Downloads/delete.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fx:id="img" fitHeight="40.0" fitWidth="36.0" layoutX="6.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../../../Downloads/file.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <Label fx:id="nomLabel" layoutX="69.0" layoutY="27.0" prefHeight="28.0" prefWidth="167.0" text="Fichier" textFill="#3ca9e7">
+         <font>
+            <Font name="Verdana" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="label" layoutX="248.0" layoutY="32.0" prefHeight="18.0" prefWidth="129.0" text="En attente" textFill="#a2a2a4">
+         <font>
+            <Font name="Verdana" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="idlabel" layoutX="423.0" layoutY="18.0" prefHeight="18.0" prefWidth="19.0" textFill="#2e2a2a00" />
+      <ProgressBar fx:id="progress" layoutX="377.0" layoutY="32.0" prefHeight="18.0" prefWidth="129.0" progress="0.0" />
+      <Label fx:id="progressLabel" layoutX="514.0" layoutY="31.0" prefHeight="18.0" prefWidth="74.0" text="\%" textFill="#3ca9e7">
+         <font>
+            <Font name="Verdana" size="13.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

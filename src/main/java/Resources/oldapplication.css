@@ -1,0 +1,30 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+#emailColumn, #telColumn, #nameColumn{
+	-fx-alignment: center ;
+	-fx-alternative-column-fill-visible: true ;
+	-fx-border-color: #ddd;
+	
+}
+
+#tv{
+	-fx-selection-bar : #ff9700;
+	
+}
+
+/* linear-gradient(#ff1d42 0%, #FF4E28 50%, #FF5F1E 51%, #FF9700 100%) */
+.btn{
+	-fx-background-color: black;
+    -fx-padding: 15 30 15 30;
+    -fx-font-family: "Gill Sans MT";
+    -fx-font-size: 20px;
+    -fx-font-weight: regular;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow( three-pass-box , rgba(255,255,255,0.2) ,
+                1, 0.0 , 0 , 1);
+	-fx-border-radius: 0.0 ;
+}
+
+.banner{
+	-fx-background-color: linear-gradient(to left , #ff1d42 0%, #FF4E28 20%, #FF5F1E 51%, #FF9700 100%);
+}
+

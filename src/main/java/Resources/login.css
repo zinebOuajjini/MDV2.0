@@ -1,0 +1,200 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+#iconUser:hover,#iconPw:hover{
+	-fx-cursor: hand;
+	
+}
+#iconUser,#iconPw{
+	-fx-border-color:#3498db;
+    -fx-border-style: solid;
+    -fx-border-width: 5;
+	
+}
+.error{
+	-fx-background-color: 
+         -fx-focus-color,
+        -fx-control-inner-background,
+        -fx-faint-focus-color,
+        linear-gradient(from 0px 0px to 0px 5px, derive(-fx-control-inner-background, -9%), -fx-control-inner-background) ;
+        -fx-border-color: red !important;
+        -fx-focus-color: transparent;
+        -fx-background-color: -fx-focus-color, -fx-text-box-border, -fx-control-inner-background;
+}
+.error:focused{
+	-fx-background-color: -fx-focus-color, -fx-text-box-border, -fx-control-inner-background;
+    -fx-background-insets: -0.4, 1, 2;
+    -fx-background-radius: 3.4, 2, 2;
+        -fx-border-color: red;
+        -fx-focus-color: transparent;
+}
+.banner{
+	-fx-background-color: linear-gradient(to left , #ff1d42 0%, #FF4E28 20%, #FF5F1E 51%, #FF9700 100%);
+} 
+.loginBackGround{
+	-fx-background-color: linear-gradient(to bottom , #DF163A 0%, #E43031 20%, #EE5710 51%, #FF9600 100%);
+}
+
+.profilePane
+{
+	/*-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);*/
+  -fx-border-color : black; -fx-border-width : 0 0 0.1 0;
+}
+.messagePane{
+	-fx-background-color: black;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 5, 0, 0, 0);
+	-fx-padding : 2px;
+}
+.messageLabel{
+	-fx-text-fill: white;
+}
+.logo
+{
+	-fx-background-repeat: stretch;   
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+	/*-fx-alignment: CENTER;
+	-fx-padding:0 0 0 50px  ;*/
+}
+.leftButtons{
+    /*-fx-font-family: 16px "Didact Gothic";*/
+}
+/*.leftButtons:hover{
+    -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-background-radius: 3px, 3px, 2px, 1px;
+    -fx-padding: 0.333333em 0.666667em 0.333333em 0.666667em; 
+    -fx-text-fill: -fx-text-base-color;
+    -fx-alignment: CENTER;
+    -fx-content-display: LEFT;
+}
+*/
+/*.textfield:hover{
+	-fx-highlight-fill: -fx-accent;
+    -fx-highlight-text-fill: #048FD8;
+    -fx-background-color: 
+        -fx-focus-color,
+        -fx-control-inner-background,
+        -fx-faint-focus-color,
+        linear-gradient(from 0px 0px to 0px 5px, derive(-fx-control-inner-background, -9%), -fx-control-inner-background);
+    -fx-background-insets: -0.2, 1, -1.4, 3;
+    -fx-background-radius: 3, 2, 4, 0;
+    -fx-prompt-text-fill: transparent;
+} */
+.leftButtons:hover{
+	-fx-text-fill: #3498DB;
+	-fx-border-color: #048FD8;
+	-fx-border-width : 0 0 0 2;
+}
+.profileImg{
+	-fx-background-image: url("/profile.png");
+}
+.mainPane{
+	/*-fx-background-image: url("/ressources/1b.png");  */
+	
+	-fx-background-size: cover; 
+	-fx-background-repeat: no-repeat;
+}
+.connectedPane{
+	-fx-opacity: 1;
+}
+.logoPane{
+	-fx-opacity: 1;
+}
+.loginPane{
+	-fx-opacity: 0.96;
+}
+.loginLeftButtons{
+	-fx-text-fill: #909193;
+	-fx-border-color: #909193;
+	-fx-border-width : 1.5;
+	-fx-border-radius: 50;
+	-fx-opacity: 1;
+}
+.loginLeftButtons:hover{
+	-fx-text-fill: #C26847;
+	-fx-border-color: #C26847;
+	-fx-border-width : 1.5;
+	-fx-border-radius: 50;
+}
+.mainbutton{
+	-fx-border-color : #3498DB;
+	-fx-text-fill: #3498DB;
+	-fx-border-width:0.5;
+	-fx-border-radius:50;
+}
+.mainbutton:hover{
+	-fx-background-color: #3498DB;
+	-fx-text-fill: white;
+	-fx-cursor: hand;
+	-fx-background-radius: 50;
+}
+.inscrireLabel:hover{
+	-fx-font-size: 12px;
+}
+.diconnectlabel:hover{
+	
+}
+.diconnectlabel:hover{
+
+}
+.combo-box {
+    -fx-background-color: transparent;
+    -fx-border-color : #3498DB;
+	-fx-text-fill: #3498DB;
+	-fx-border-width:0.5;
+	-fx-border-radius:5;
+}
+
+.elementContainer{
+	fx-background-color : white;
+    -fx-border-color : black;
+	-fx-border-width : 0.1 0 0 0;
+	-fx-padding : 0;
+}
+
+
+
+
+
+
+
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
+}
+
+.tab-pane
+{
+    -fx-tab-min-width:90px;
+}
+
+.tab{
+    -fx-background-insets: 0 1 0 1,0,0;
+}
+.tab-pane .tab
+{
+    -fx-background-color: #e6e6e6;
+
+}
+
+.tab-pane .tab:selected
+{
+    -fx-background-color: #3c3c3c;
+}
+
+.tab .tab-label { 
+    -fx-alignment: CENTER;
+    -fx-text-fill: #828282;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.tab:selected .tab-label { 
+    -fx-alignment: CENTER;
+    -fx-text-fill: #96b946;
+}
+
+.tab-pane:top *.tab-header-area {
+    -fx-background-insets: 0, 0 0 1 0;
+ /* -fx-padding: 0.416667em 0.166667em 0.0em 0.833em; /* 5 2 0 10 */
+    -fx-padding: 0.416667em 0.166667em 0.0em 0.0em; /* overridden as 5 2 0 0 */
+}
