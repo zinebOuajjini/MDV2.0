@@ -35,7 +35,7 @@ public class AnotherProjectApplication extends Application{
 	public void init() throws Exception {
 		
 	    springContext = SpringApplication.run(AnotherProjectApplication.class);
-	    
+	    //test
 	    FXMLLoader fxmlLoader= new FXMLLoader(getClass().getResource("/com/sopraMdv/anotherProject/view/Welcome.fxml"));
 	    springContext.getAutowireCapableBeanFactory().autowireBean(this);
 	    fxmlLoader.setControllerFactory(AnotherProjectApplication.springContext::getBean);
