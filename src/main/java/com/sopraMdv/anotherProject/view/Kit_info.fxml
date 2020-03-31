@@ -7,16 +7,16 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="DataBase" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="877.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sopraMdv.anotherProject.Controller.KitInfoController">
+<Pane fx:id="DataBase" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="877.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sopraMdv.anotherProject.Controller.KitInfoController">
    <children>
-      <Pane layoutX="96.0" layoutY="271.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="200.0" prefWidth="186.0" style="-fx-background-color: white; -fx-background-radius: 5;">
+      <Pane layoutX="37.0" layoutY="181.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="185.0" prefWidth="147.0" style="-fx-background-color: white; -fx-background-radius: 5;">
          <children>
-            <Label fx:id="dataBaseBtn" alignment="CENTER" contentDisplay="CENTER" layoutX="41.0" layoutY="138.0" onMouseClicked="#createDB" prefHeight="40.0" prefWidth="105.0" style="-fx-border-color: #3498DB; -fx-border-width: 0.5; -fx-border-radius: 50; -fx-background-radius: 50;" styleClass="mainbutton" text="Créer" textFill="#6e6e6e">
+            <Label fx:id="dataBaseBtn" alignment="CENTER" contentDisplay="CENTER" layoutX="27.0" layoutY="140.0" onMouseClicked="#createDB" prefHeight="35.0" prefWidth="95.0" style="-fx-border-color: #3498DB; -fx-border-width: 0.5; -fx-border-radius: 50; -fx-background-radius: 50;" styleClass="mainbutton" text="Créer" textFill="#6e6e6e">
                <font>
                   <Font name="Verdana" size="14.0" />
                </font>
             </Label>
-            <ImageView fx:id="img2" fitHeight="50.0" fitWidth="57.0" layoutX="69.0" onMousePressed="#showDBInfo" onMouseReleased="#hideDBInfo" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="img2" fitHeight="40.0" fitWidth="33.0" layoutX="59.0" layoutY="7.0" onMousePressed="#showDBInfo" onMouseReleased="#hideDBInfo" pickOnBounds="true" preserveRatio="true">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -24,30 +24,30 @@
                   <Image url="@../../../../../../../../../Downloads/db1.png" />
                </image>
             </ImageView>
-            <Label fx:id="databaseNom" alignment="TOP_CENTER" contentDisplay="TOP" layoutX="20.0" layoutY="80.0" prefHeight="50.0" prefWidth="147.0" text="Base de données cible" textAlignment="CENTER" textFill="#a2a2a4" wrapText="true">
+            <Label fx:id="databaseNom" alignment="TOP_CENTER" contentDisplay="TOP" layoutX="8.0" layoutY="78.0" prefHeight="19.0" prefWidth="133.0" text="BD" textAlignment="CENTER" textFill="#a2a2a4" wrapText="true">
                <font>
                   <Font name="Verdana" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="nomKit" alignment="CENTER" contentDisplay="CENTER" layoutX="6.0" layoutY="54.0" prefHeight="28.0" prefWidth="174.0" text="Base de données">
+            <Label fx:id="nomKit" alignment="CENTER" contentDisplay="CENTER" layoutX="2.0" layoutY="51.0" prefHeight="28.0" prefWidth="147.0" text="Base de données">
                <font>
                   <Font name="Verdana Bold" size="14.0" />
                </font>
             </Label>
-            <ImageView fx:id="deleteDBImg" fitHeight="19.0" fitWidth="18.0" layoutX="84.0" layoutY="117.0" onMouseClicked="#deleteDB" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="deleteDBImg" fitHeight="19.0" fitWidth="18.0" layoutX="64.0" layoutY="99.0" onMouseClicked="#deleteDB" pickOnBounds="true" preserveRatio="true">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></ImageView>
          </children>
       </Pane>
-      <Pane layoutX="337.0" layoutY="271.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="200.0" prefWidth="186.0" style="-fx-background-color: white; -fx-background-radius: 5;">
+      <Pane layoutX="475.0" layoutY="181.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="185.0" prefWidth="147.0" style="-fx-background-color: white; -fx-background-radius: 5;">
          <children>
-            <Label fx:id="chosebtn1" alignment="CENTER" contentDisplay="CENTER" layoutX="41.0" layoutY="141.0" onMouseClicked="#showScripts" prefHeight="40.0" prefWidth="105.0" style="-fx-border-color: #3498DB; -fx-border-width: 0.5; -fx-border-radius: 50; -fx-background-radius: 50;" styleClass="mainbutton" text="consulter" textFill="#6e6e6e">
+            <Label fx:id="chosebtn1" alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="140.0" onMouseClicked="#showScripts" prefHeight="35.0" prefWidth="95.0" style="-fx-border-color: #3498DB; -fx-border-width: 0.5; -fx-border-radius: 50; -fx-background-radius: 50;" styleClass="mainbutton" text="consulter" textFill="#6e6e6e">
                <font>
                   <Font name="Verdana" size="14.0" />
                </font>
             </Label>
-            <ImageView fx:id="img3" fitHeight="62.0" fitWidth="50.0" layoutX="68.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="img3" fitHeight="40.0" fitWidth="33.0" layoutX="60.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -55,26 +55,26 @@
                   <Image url="@../../../../../../../../../Downloads/code-file.png" />
                </image>
             </ImageView>
-            <Label fx:id="description1" alignment="TOP_CENTER" contentDisplay="TOP" layoutX="20.0" layoutY="88.0" prefHeight="50.0" prefWidth="147.0" text="Scripts fournis par la R&amp;D a éxecuter" textAlignment="CENTER" textFill="#a2a2a4" wrapText="true">
+            <Label fx:id="description1" alignment="TOP_CENTER" contentDisplay="TOP" layoutY="88.0" prefHeight="50.0" prefWidth="147.0" text="Scripts fournis par la R&amp;D a éxecuter" textAlignment="CENTER" textFill="#a2a2a4" wrapText="true">
                <font>
                   <Font name="Verdana" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="nomKit1" alignment="CENTER" contentDisplay="CENTER" layoutX="6.0" layoutY="54.0" prefHeight="28.0" prefWidth="174.0" text="Scripts">
+            <Label fx:id="nomKit1" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="52.0" prefHeight="28.0" prefWidth="125.0" text="Scripts">
                <font>
                   <Font name="Verdana Bold" size="14.0" />
                </font>
             </Label>
          </children>
       </Pane>
-      <Pane layoutX="586.0" layoutY="271.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="200.0" prefWidth="196.0" style="-fx-background-color: white; -fx-background-radius: 5;">
+      <Pane layoutX="256.0" layoutY="181.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="185.0" prefWidth="147.0" style="-fx-background-color: white; -fx-background-radius: 5;">
          <children>
-            <Label fx:id="chosebtn2" alignment="CENTER" contentDisplay="CENTER" layoutX="41.0" layoutY="141.0" prefHeight="40.0" prefWidth="105.0" style="-fx-border-color: #3498DB; -fx-border-width: 0.5; -fx-border-radius: 50; -fx-background-radius: 50;" styleClass="mainbutton" text="consulter" textFill="#6e6e6e">
+            <Label fx:id="execInfoAvant" alignment="CENTER" contentDisplay="CENTER" layoutX="26.0" layoutY="140.0" onMouseClicked="#execScriptDirect" prefHeight="35.0" prefWidth="95.0" style="-fx-border-color: #3498DB; -fx-border-width: 0.5; -fx-border-radius: 50; -fx-background-radius: 50;" styleClass="mainbutton" text="Executer" textFill="#6e6e6e">
                <font>
                   <Font name="Verdana" size="14.0" />
                </font>
             </Label>
-            <ImageView fx:id="img4" fitHeight="50.0" fitWidth="50.0" layoutX="73.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="infoAvantImg" fitHeight="40.0" fitWidth="33.0" layoutX="57.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -82,24 +82,24 @@
                   <Image url="@../../../../../../../../../Downloads/code.png" />
                </image>
             </ImageView>
-            <Label fx:id="description2" alignment="TOP_CENTER" contentDisplay="TOP" layoutX="20.0" layoutY="88.0" prefHeight="50.0" prefWidth="147.0" text="Programmes fournis par la R&amp;D" textAlignment="CENTER" textFill="#a2a2a4" wrapText="true">
+            <Label fx:id="description2" alignment="TOP_CENTER" contentDisplay="TOP" layoutX="1.0" layoutY="88.0" prefHeight="50.0" prefWidth="147.0" text="Collection d'info avant Kit" textAlignment="CENTER" textFill="#a2a2a4" wrapText="true">
                <font>
                   <Font name="Verdana" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="nomKit2" alignment="CENTER" contentDisplay="CENTER" layoutX="6.0" layoutY="54.0" prefHeight="28.0" prefWidth="186.0" text="Programmes de reprise">
+            <Label fx:id="nomKit2" alignment="CENTER" contentDisplay="CENTER" layoutX="15.0" layoutY="40.0" prefHeight="50.0" prefWidth="117.0" text="Info Avant" textAlignment="CENTER" wrapText="true">
                <font>
                   <Font name="Verdana Bold" size="14.0" />
                </font>
             </Label>
          </children>
       </Pane>
-      <Label fx:id="nomKit" alignment="CENTER" contentDisplay="CENTER" layoutX="272.0" layoutY="108.0" prefHeight="50.0" prefWidth="316.0" text="Kit numero 1">
+      <Label fx:id="nomKit" alignment="CENTER" contentDisplay="CENTER" layoutX="272.0" layoutY="70.0" prefHeight="50.0" prefWidth="316.0" text="Kit numero 1">
          <font>
             <Font name="Verdana" size="18.0" />
          </font>
       </Label>
-      <ImageView fx:id="img1" fitHeight="62.0" fitWidth="50.0" layoutX="405.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="img1" fitHeight="62.0" fitWidth="50.0" layoutX="405.0" layoutY="20.0" onMouseClicked="#modifierKit" onMouseEntered="#showMessageScriptState" onMouseExited="#hideMessage" pickOnBounds="true" preserveRatio="true">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -107,7 +107,7 @@
             <Image url="@../../../../../../../../../Downloads/check-mark.png" />
          </image>
       </ImageView>
-      <Label fx:id="descriptionKit" alignment="TOP_CENTER" contentDisplay="TOP" layoutX="265.0" layoutY="151.0" prefHeight="77.0" prefWidth="330.0" text="Description de kit de migration lalalal ala ala " textAlignment="CENTER" textFill="#a2a2a4" wrapText="true">
+      <Label fx:id="descriptionKit" alignment="TOP_CENTER" contentDisplay="TOP" layoutX="265.0" layoutY="113.0" prefHeight="77.0" prefWidth="330.0" text="Description de kit de migration " textAlignment="CENTER" textFill="#a2a2a4" wrapText="true">
          <font>
             <Font name="Verdana" size="14.0" />
          </font>
@@ -128,5 +128,113 @@
             <Image url="@../../../../../../../../../Downloads/rubbish.png" />
          </image>
       </ImageView>
+      <Pane layoutX="694.0" layoutY="181.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="185.0" prefWidth="147.0" style="-fx-background-color: white; -fx-background-radius: 5;">
+         <children>
+            <Label fx:id="execRegul" alignment="CENTER" contentDisplay="CENTER" layoutX="26.0" layoutY="140.0" onMouseClicked="#execScriptDirect" prefHeight="35.0" prefWidth="95.0" style="-fx-border-color: #3498DB; -fx-border-width: 0.5; -fx-border-radius: 50; -fx-background-radius: 50;" styleClass="mainbutton" text="Executer" textFill="#6e6e6e">
+               <font>
+                  <Font name="Verdana" size="14.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="regulImg" fitHeight="40.0" fitWidth="33.0" layoutX="57.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <image>
+                  <Image url="@../../../../../../../../../Downloads/code.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="description21" alignment="TOP_CENTER" contentDisplay="TOP" layoutX="1.0" layoutY="88.0" prefHeight="50.0" prefWidth="147.0" text="Régulariser la Base" textAlignment="CENTER" textFill="#a2a2a4" wrapText="true">
+               <font>
+                  <Font name="Verdana" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="nomKit21" alignment="CENTER" contentDisplay="CENTER" layoutX="15.0" layoutY="40.0" prefHeight="50.0" prefWidth="117.0" text="Script de régularisation" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Verdana Bold" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="143.0" layoutY="374.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="185.0" prefWidth="147.0" style="-fx-background-color: white; -fx-background-radius: 5;">
+         <children>
+            <Label fx:id="chosebtn211" alignment="CENTER" contentDisplay="CENTER" layoutX="26.0" layoutY="140.0" onMouseClicked="#loadReferentielRemotely" prefHeight="35.0" prefWidth="95.0" style="-fx-border-color: #3498DB; -fx-border-width: 0.5; -fx-border-radius: 50; -fx-background-radius: 50;" styleClass="mainbutton" text="Charger" textFill="#6e6e6e">
+               <font>
+                  <Font name="Verdana" size="14.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="refImg" fitHeight="40.0" fitWidth="33.0" layoutX="57.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <image>
+                  <Image url="@../../../../../../../../../Downloads/code.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="description211" alignment="TOP_CENTER" contentDisplay="TOP" layoutX="1.0" layoutY="88.0" prefHeight="50.0" prefWidth="147.0" text="Charger le referenciel" textAlignment="CENTER" textFill="#a2a2a4" wrapText="true">
+               <font>
+                  <Font name="Verdana" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="nomKit211" alignment="CENTER" contentDisplay="CENTER" layoutX="15.0" layoutY="40.0" prefHeight="50.0" prefWidth="117.0" text="Chargement du Referentiel" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Verdana Bold" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="363.0" layoutY="374.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="185.0" prefWidth="147.0" style="-fx-background-color: white; -fx-background-radius: 5;">
+         <children>
+            <Label fx:id="chosebtn2111" alignment="CENTER" contentDisplay="CENTER" layoutX="26.0" layoutY="140.0" prefHeight="35.0" prefWidth="95.0" style="-fx-border-color: #3498DB; -fx-border-width: 0.5; -fx-border-radius: 50; -fx-background-radius: 50;" styleClass="mainbutton" text="consulter" textFill="#6e6e6e">
+               <font>
+                  <Font name="Verdana" size="14.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="prgRepImg" fitHeight="40.0" fitWidth="33.0" layoutX="57.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <image>
+                  <Image url="@../../../../../../../../../Downloads/code.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="description2111" alignment="TOP_CENTER" contentDisplay="TOP" layoutX="1.0" layoutY="88.0" prefHeight="50.0" prefWidth="147.0" text="Programmes fournis par la R&amp;D" textAlignment="CENTER" textFill="#a2a2a4" wrapText="true">
+               <font>
+                  <Font name="Verdana" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="nomKit2111" alignment="CENTER" contentDisplay="CENTER" layoutX="15.0" layoutY="40.0" prefHeight="50.0" prefWidth="117.0" text="Programmes de Reprise" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Verdana Bold" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="584.0" layoutY="374.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="185.0" prefWidth="147.0" style="-fx-background-color: white; -fx-background-radius: 5;">
+         <children>
+            <Label fx:id="execInfoApres" alignment="CENTER" contentDisplay="CENTER" layoutX="26.0" layoutY="140.0" onMouseClicked="#execScriptDirect" prefHeight="35.0" prefWidth="95.0" style="-fx-border-color: #3498DB; -fx-border-width: 0.5; -fx-border-radius: 50; -fx-background-radius: 50;" styleClass="mainbutton" text="Executer" textFill="#6e6e6e">
+               <font>
+                  <Font name="Verdana" size="14.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="infoApresImg" fitHeight="40.0" fitWidth="33.0" layoutX="57.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <image>
+                  <Image url="@../../../../../../../../../Downloads/code.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="description21111" alignment="TOP_CENTER" contentDisplay="TOP" layoutX="1.0" layoutY="88.0" prefHeight="50.0" prefWidth="147.0" text="Collection d'info aprés le Kit" textAlignment="CENTER" textFill="#a2a2a4" wrapText="true">
+               <font>
+                  <Font name="Verdana" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="nomKit21111" alignment="CENTER" contentDisplay="CENTER" layoutX="15.0" layoutY="40.0" prefHeight="50.0" prefWidth="117.0" text="Info Aprés" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Verdana Bold" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
    </children>
 </Pane>

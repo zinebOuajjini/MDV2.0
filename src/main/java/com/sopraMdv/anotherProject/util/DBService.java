@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.time.temporal.IsoFields;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -31,7 +30,7 @@ public class DBService extends javafx.concurrent.Service<Object> {
 	List<String> listMulti;
 	private FileHistoryDAO fileDao;
 	private boolean checkMulti;
-	private boolean isPackage,isDeclareBlock;
+	private boolean isPackage, isDeclareBlock;
 
 	public FileHistoryDAO getFileDao() {
 		return fileDao;
@@ -81,8 +80,7 @@ public class DBService extends javafx.concurrent.Service<Object> {
 	public void setHistoriqueController(HistoriqueController historiqueController) {
 		this.historiqueController = historiqueController;
 	}
-	
-	
+
 	@Override
 	protected Task createTask() {
 
@@ -99,94 +97,53 @@ public class DBService extends javafx.concurrent.Service<Object> {
 				Connection cnx = session.getCnx();
 				String s1 = "", s2 = "", s3 = "";
 				FileHistory file = fileDao.getFileById(session.getIdFile());
-
-				listMulti = new ArrayList<String>(FillListMulti());
-
+				DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+				double progressVal = 0;
 				try {
-
-					int querytype = 0; // 0 : single line query -- 1 : multi-line query
-
 					while (sc.hasNext()) {
-
-						if (session.getExePaused() == 1) { // is paused ?
-							break;
-						}
-						checkMulti = true;// set to check if there is a multiline inside another multiline
 						s1 = sc.nextLine();
 						session.setLine(session.getLine() + 1);
-						s1 = eliminateComments(s1, sc);
-						// System.out.println("--" + IsMultiline2(s1, sc));
-						//s3 = IsMultiline2(s1, sc);
-						// querytype = IsMultiLine(s1, listMulti);
-						
-							s2 = "";
-							//if (!sc.hasNext()) {
-								s2 += "\n" + s1;
-							//}
-//							while (sc.hasNext()) {
-//								if (!s1.equals("")) {
-//									s2 += "\n" + s1 + " ";
-//								}
-//
-//								if (s1.contains(";"))
-//									break;
-//
-//								s1 = sc.nextLine();
-//								session.setLine(session.getLine() + 1);
-//
-//								if (!sc.hasNext()) {
-//									s2 += "\n" + s1;
-//								}
-//							}
-							if (querytype == 0) {
-								session.setPreLine(session.getLine());
-								session.setScanner(sc);
-//								if (s2.replaceAll(" ", "").endsWith(";")) {
-//									s2 = s2.replaceAll(" +$", "").replaceAll("\n"," ");
-//									if(s2.toLowerCase().matches(".*( |;)end *[^ ]* *\\;")) {
-//										s2 = s2.replaceAll(";$", "");
-//									}
-//								}
-//								if (s2.replaceAll(" ", "").endsWith(";")) {
-//									s2 = s2.replaceAll(" +$", "").replaceAll(";$", "");
-//								}
-								if (s2.replaceAll("\n", "").isEmpty()) {
-									break;
-								} else {
-									double progressVal =  ((double) session.getLine() / file.getLines()) * 100;
-									if(progressVal>100)
-										progressVal = 100;
-									try {
-										dbConnexion.executeQuery(s2.trim(), cnx);
-									} catch (Exception e) {
-										if(session.getCnx().isClosed()) {
-											return null;
-										}
-										System.out.println("a warning occurred;");
-									}
-									
-									this.updateMessage((new DecimalFormat("##.##")).format(progressVal) + "%");
-									this.updateProgress((float) session.getLine() / file.getLines(), 1);
-								}
+						session.setPreLine(session.getLine());
+						session.setScanner(sc);
+						progressVal = ((double) session.getLine() / file.getLines()) * 100;
+						try {
+							session.setSqlStartDate(df.format(new Date()));
+							dbConnexion.executeQuery(s1.trim(), cnx);
+						} catch (Exception e) {
+							if (session.getCnx() == null || session.getCnx().isClosed()) {
+								return null;
 							}
-
-						
+							e.printStackTrace();
+							System.out.println("a warning occurred;");
+						}
+						this.updateMessage((new DecimalFormat("##.##")).format(progressVal) + "%");
+						this.updateProgress((float) session.getLine() / file.getLines(), 1);
 					}
 					// -------end of file
 					FileHistory fichier = new FileHistory(fileDao.getFileById(session.getIdFile()));
 					/// mise à jour de la table File (currentLine)
-					fichier.setCurrentline(session.getLine());
+					// on fait ce tst car parfois la ligne dans la base rest toujoours dans la ligne
+					/// l'avant dernier.
+					int val = 0;
+					if (fichier.getLines() - session.getLine() == 1) {
+						val = 1;
+					}
+					fichier.setCurrentline(session.getLine() + val);
 					/// mise à jour de la table File (dateFin)
 					DateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
 					Date date = new Date();
 					String dateFin = dateFormat.format(date);
 					fichier.setDateFin(dateFin);
 					//////////////////// enregistrement
-					fileDao.save(fichier);
+					if(session.getLine() != null) {
+						fileDao.save(fichier);
+					}
 					///////////////////// fin mise à jour
 					Platform.runLater(() -> welcomecontroller.getMovingGears().setVisible(false));
 					// historiqueController.executeKit();
 					session.setFileDone(true);
+					//close file scanner : important
+					sc.close();
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -353,7 +310,7 @@ public class DBService extends javafx.concurrent.Service<Object> {
 					if (linecount >= 4) {
 						return "";
 					}
-					
+
 					s2 += s1 + "\n";
 					s1 = sc.nextLine();
 					session.setLine(session.getLine() + 1);

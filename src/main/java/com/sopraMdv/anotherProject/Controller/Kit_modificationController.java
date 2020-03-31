@@ -20,16 +20,19 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import javafx.scene.input.MouseEvent;
 
-
 @Controller
-public class KitController {
+public class Kit_modificationController {
+	
+	private Validator validator;
+	
+	private Kit kit;
 
 	private KitDAO kitDAO;
 
 	public KitDAO getKitDAO() {
 		return kitDAO;
 	}
-	
+
 	@Autowired
 	public void setKitDAO(KitDAO kitDAO) {
 		this.kitDAO = kitDAO;
@@ -43,20 +46,18 @@ public class KitController {
 
 	@FXML
 	private Label errorLabel;
-	
+
 	@FXML
 	private TextField ipServeurKit;
-	
+
 	@FXML
 	private TextField utilisateurServeurKit;
-	
+
 	@FXML
 	private PasswordField passServeurKit;
-	
+
 	@FXML
 	private TextField repServeurKit;
-
-	private Kit kit ;
 
 	private Session session;
 
@@ -78,54 +79,59 @@ public class KitController {
 
 	@FXML
 	public void initialize() {
-		
+		validator = Validation.buildDefaultValidatorFactory().getValidator();
+		kit = new Kit(session.getKit());
+		nomKit.setText(kit.getNomKit());
+		nomKit.setDisable(true);
+		descKit.setText(kit.getDescriptionKit());
+		ipServeurKit.setText(kit.getAdressIpServeur());
+		utilisateurServeurKit.setText(kit.getUtilisateurServeur());
+		passServeurKit.setText(kit.getMotDePassUtilisateurServeur());
+		repServeurKit.setText(kit.getRepertoireDeTravail());
+
 	}
 
 	@FXML
-	public void createKit(MouseEvent event) throws IOException {
+	public void editKit(MouseEvent event) throws IOException {
 
-		
-		kit = new Kit();
 		Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 		String nommsg = "";
 		
-		kit.setNomKit(nomKit.getText().replaceAll(" ", "_"));
-		kit.setScripts("");
-		kit.setDescriptionKit(descKit.getText());	
+		//kit.setNomKit(nomKit.getText().replaceAll(" ", "_"));
+		kit.setDescriptionKit(descKit.getText());
 		kit.setAdressIpServeur(ipServeurKit.getText());
 		kit.setUtilisateurServeur(utilisateurServeurKit.getText());
 		kit.setMotDePassUtilisateurServeur(passServeurKit.getText());
 		kit.setRepertoireDeTravail(repServeurKit.getText());
-		
-		Set<ConstraintViolation<Kit>> kitViolation = validator.validate(kit);
-		if(kitViolation.isEmpty()) {
-			kitDAO.save(kit);
-			welcomecontroller.FireAnEvent(welcomecontroller.getKitlabel());
-		}else {
 
-			for(ConstraintViolation<Kit> kitV : kitViolation) {
+		Set<ConstraintViolation<Kit>> kitViolation = validator.validate(kit);
+		if (kitViolation.isEmpty()) {
+			kitDAO.save(kit);
+			session.setKit(kit);
+			welcomecontroller.loadInMainPane(welcomecontroller.getMainpane(), "Kit_info");
+		} else {
+
+			for (ConstraintViolation<Kit> kitV : kitViolation) {
 				if (kitV.getPropertyPath().toString().equals("nomKit")) {
 					nommsg = kitV.getMessage();
-				} 
+				}
 			}
-			
+
 			if (!nommsg.isEmpty()) {
 				nomKit.getStyleClass().add("error");
 			} else {
 				nomKit.getStyleClass().remove("error");
 			}
-			
+
 			errorLabel.setText("\t\t\tOuuups!!\nLes champs en rouge sont invalides.");
-			
+
 		}
 
 	}
 
-	
-
 	@FXML
 	public void cancel(MouseEvent event) throws IOException {
-		welcomecontroller.loadInMainPane(welcomecontroller.getMainpane(), "Kits de migration");
+		welcomecontroller.loadInMainPane(welcomecontroller.getMainpane(), "Kit_info");
 	}
 
 }

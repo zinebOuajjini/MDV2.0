@@ -8,10 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.sopraMdv.anotherProject.dao.DataBaseDAO;
-
 import com.sopraMdv.anotherProject.dao.ServerDAO;
 import com.sopraMdv.anotherProject.entities.DataBase;
-
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;

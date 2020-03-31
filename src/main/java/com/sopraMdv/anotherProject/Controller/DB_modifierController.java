@@ -14,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import com.sopraMdv.anotherProject.dao.DataBaseDAO;
 import com.sopraMdv.anotherProject.dao.ServerDAO;
 import com.sopraMdv.anotherProject.entities.DataBase;
-import com.sopraMdv.anotherProject.entities.Oracle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -168,7 +167,7 @@ public class DB_modifierController {
 				if (conn != null) {
 					databaseDao.save(db);
 					db.setId(null);
-					//welcomecontroller.FireAnEvent(welcomecontroller.getDblabel());
+					welcomecontroller.loadInMainPane(welcomecontroller.getMainpane(), "kit_info");
 				} else {
 					errorLabel.setText("Cannot connect to this Database.\n please verify this info given.");
 				}

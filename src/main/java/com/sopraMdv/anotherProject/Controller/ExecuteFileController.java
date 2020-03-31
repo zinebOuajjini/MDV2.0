@@ -20,10 +20,8 @@ import org.springframework.stereotype.Controller;
 import com.sopraMdv.anotherProject.dao.DataBaseDAO;
 import com.sopraMdv.anotherProject.dao.FileHistoryDAO;
 import com.sopraMdv.anotherProject.dao.KitDAO;
-
 import com.sopraMdv.anotherProject.entities.DataBase;
 import com.sopraMdv.anotherProject.entities.FileHistory;
-import com.sopraMdv.anotherProject.entities.Server;
 import com.sopraMdv.anotherProject.util.DBService;
 
 import javafx.beans.value.ChangeListener;
@@ -46,6 +44,8 @@ import javafx.stage.WindowEvent;
 
 @Controller
 public class ExecuteFileController {
+
+	private static final String PathSeparator = System.getProperty("file.separator");
 
 	@FXML
 	private AnchorPane ViewPane;
@@ -239,58 +239,62 @@ public class ExecuteFileController {
 	}
 
 	public void openFilewith() throws IOException {
-		String filePath = "";
-		if (session.getFileopenerPath() == null) {
-			FileChooser chooser = new FileChooser();
-			File fileopener = chooser.showOpenDialog(consoleLog.getScene().getWindow());
-			filePath = fileopener.getCanonicalPath();
-			session.setFileopenerPath(filePath);
-		} else {
-			filePath = session.getFileopenerPath();
-		}
-		FileHistory fh = new FileHistory(fileDao.getFileById(session.getIdFile()));
-		try {
-			if (filePath != null) {
-				String cmd = "\"" + filePath + "\" " + fh.getPath() + " -n" + fh.getCurrentline();
-				Runtime.getRuntime().exec(cmd);
-			}
-		} catch (IOException e) {
-			Alert alert = new Alert(AlertType.WARNING);
-			alert.setTitle("Problème!!");
-			alert.setHeaderText("Problème d'ouverture du fichier");
-			alert.setContentText("programme non valide!");
 
-			alert.showAndWait();
+		if (System.getProperty("os.name").toLowerCase().contains("win")) {
+			String filePath = "";
+			if (session.getFileopenerPath() == null) {
+				FileChooser chooser = new FileChooser();
+				File fileopener = chooser.showOpenDialog(consoleLog.getScene().getWindow());
+				filePath = fileopener.getCanonicalPath();
+				session.setFileopenerPath(filePath);
+			} else {
+				filePath = session.getFileopenerPath();
+			}
+			FileHistory fh = new FileHistory(fileDao.getFileById(session.getIdFile()));
+			try {
+				if (filePath != null) {
+					String cmd = "\"" + filePath + "\" " + fh.getPath() + " -n" + fh.getCurrentline();
+					Runtime.getRuntime().exec(cmd);
+				}
+			} catch (IOException e) {
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("Problème!!");
+				alert.setHeaderText("Problème d'ouverture du fichier");
+				alert.setContentText("programme non valide!");
+
+				alert.showAndWait();
+			}
 		}
 	}
 
 	public void startdbThread(Scanner sc, Connection cnx) {
-		System.out.println("jhjkhjkhjkhjkhjkhjkhjkhk");
 		session.setScanner(sc);
 		session.setFileDone(false);
-		
+
 		welcomecontroller.getOnTopProgressLabel().textProperty().bind(service.messageProperty());
 		welcomecontroller.getOnTopProgressbar().progressProperty().bind(service.progressProperty());
-		
+
 		service.messageProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				System.out.println("changer messageProperty :: " + oldValue + "|" + newValue);
+				// System.out.println("changer messageProperty :: " + oldValue + "|" +
+				// newValue);
 			}
 		});
-		service.runningProperty().addListener(e -> {
-			if (session.isFileDone()) {
-				System.out.println("exiting file");
-				try {
-					System.out.println("starting next file");
-					historiqueController.executeKit();
-				} catch (IOException | SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-			System.out.println("changing stat : " + service.isRunning());
-		});
+//		service.runningProperty().addListener(e -> {
+//			if (session.isFileDone()) {
+//				System.out.println("exiting file");
+//				try {
+//					System.out.println("starting next file");
+//					historiqueController.executeKit();
+//				} catch (IOException | SQLException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
+//			}
+//			System.out.println("changing stat : " + service.isRunning());
+//			System.out.println("changing stat : " + service.getState());
+//		});
 		service.setOnFailed(e -> {
 			System.out.println("failed");
 			welcomecontroller.getOnTopProgressLabel().textProperty().unbind();
@@ -300,20 +304,34 @@ public class ExecuteFileController {
 			System.out.println("succeded");
 			welcomecontroller.getOnTopProgressLabel().textProperty().unbind();
 			welcomecontroller.getOnTopProgressbar().progressProperty().unbind();
+			if (session.isFileDone()) {
+				try {
+					historiqueController.executeKit();
+					// service.cancel();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
 		});
 		service.setOnCancelled(e -> {
 			System.out.println("cancelled");
 			welcomecontroller.getOnTopProgressLabel().textProperty().unbind();
 			welcomecontroller.getOnTopProgressbar().progressProperty().unbind();
 		});
-		if (!service.isRunning()) {// run service(test if its already running, in this case we do noting)
+		if (!service.getState().equals("RUNNING")) {// run service(test if its already running, in this case we do
+													// noting)
 
 			service.reset();
 			service.start();
 		}
-	
+
 	}
 
+	// old
 	public void executeScript() throws IOException, SQLException {
 
 		i++;
@@ -326,20 +344,21 @@ public class ExecuteFileController {
 			lines++;
 		}
 		String fileName = null;
-		String fileInCashpath = System.getProperty("user.dir") + "\\src\\main\\java\\Cache\\";
+		String fileInCashpath = System.getProperty("user.dir") + "" + PathSeparator + "src" + PathSeparator + "main"
+				+ PathSeparator + "java" + PathSeparator + "Cache" + PathSeparator + "";
 		String dateDebut = dateFormat.format(date);
-		String cmd = "CMD /C COPY /Y " + "\"" + mainController.getSelectedFile().getCanonicalPath() + "\" \""
-				+ fileInCashpath + dateDebut + "_" + mainController.getSelectedFile().getName() + "\"";
+//		String cmd = "CMD /C COPY /Y " + "\"" + mainController.getSelectedFile().getCanonicalPath() + "\" \""
+//				+ fileInCashpath + dateDebut + "_" + mainController.getSelectedFile().getName() + "\"";
 
 		DirectoryChooser chooser = new DirectoryChooser();
 		chooser.setTitle("choisir votre repertoire des Logs");
 		File ff = chooser.showDialog(consoleLog.getScene().getWindow());
 		if (ff != null) {
 			fileName = mainController.getSelectedFile().getName();
-			String cleanFile = ff.getCanonicalPath() + "\\" + dateDebut + "_"
+			String cleanFile = ff.getCanonicalPath() + "" + PathSeparator + "" + dateDebut + "_"
 					+ fileName.substring(0, fileName.length() - 4) + "_Corr.txt";
 			File f = new File(cleanFile);
-			String logFile = ff.getCanonicalPath() + "\\" + dateDebut + "_"
+			String logFile = ff.getCanonicalPath() + "" + PathSeparator + "" + dateDebut + "_"
 					+ fileName.substring(0, fileName.length() - 4) + "_Log.txt";
 
 			File f1 = new File(logFile);
@@ -347,7 +366,7 @@ public class ExecuteFileController {
 			f.createNewFile();
 			f1.createNewFile();
 
-			System.out.println(cmd + "||" + Runtime.getRuntime().exec(cmd));
+//			System.out.println(cmd + "||" + Runtime.getRuntime().exec(cmd));
 
 			com.sopraMdv.anotherProject.entities.FileHistory fichier = new com.sopraMdv.anotherProject.entities.FileHistory();
 			fichier.setCurrentline(0L);
@@ -390,7 +409,9 @@ public class ExecuteFileController {
 		com.sopraMdv.anotherProject.entities.FileHistory fichier = new com.sopraMdv.anotherProject.entities.FileHistory(
 				fileDao.getFileById(session.getIdFile()));
 		fichier.setCurrentline(session.getLine());
-		fileDao.save(fichier);
+		if (session.getLine() != null) {
+			fileDao.save(fichier);
+		}
 		///////////////////// fin mise à jour
 		welcomecontroller.getExecutebtn().setImage(new Image("/Resources/pause.png", false));
 		welcomecontroller.getConnectstate().setStyle("-fx-Fill : #2ffc69");
@@ -412,25 +433,42 @@ public class ExecuteFileController {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
 		Date date = new Date();
 		String dateDebut = dateFormat.format(date);
-		Scanner sc1 = new Scanner(new FileReader(scriptfile));
 		Long lines = 0L;
-		while (sc1.hasNext()) {
-			sc1.nextLine();
-			lines++;
+		try {
+			Scanner sc1 = new Scanner(new FileReader(scriptfile));
+			while (sc1.hasNext()) {
+				sc1.nextLine();
+				lines++;
+			}
+			sc1.close();
+		} catch (Exception e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("erreur : fichier ");
+			alert.setHeaderText("erreur :  fichier non trouvé");
+			alert.setContentText(e.getMessage());
+			alert.showAndWait().get();
+			welcomecontroller.getMovingGears().setVisible(false);
+			welcomecontroller.getOnTopPane().setVisible(false);
+			session.setExePaused(2);
+			return;
 		}
 		String fileName = null;
-		String Cashpath = welcomecontroller.getCachePath() + "\\MDVApp\\Cache\\";
+		String Cashpath = welcomecontroller.getCachePath() + "" + PathSeparator + "MDVApp" + PathSeparator + "Cache"
+				+ PathSeparator + "";
 
-		String filesInCashpath = Cashpath + session.getKit().getNomKit() + "\\" + "scripts\\";
+		String filesInCashpath = Cashpath + session.getKit().getNomKit() + "" + PathSeparator + "" + "scripts"
+				+ PathSeparator + "";
 
-		String logPath = Cashpath + session.getKit().getNomKit() + "\\" + "logs\\";
+		String logPath = Cashpath + session.getKit().getNomKit() + "" + PathSeparator + "" + "logs" + PathSeparator
+				+ "";
 
-		String resPath = Cashpath + session.getKit().getNomKit() + "\\" + "resultats\\";
+		String resPath = Cashpath + session.getKit().getNomKit() + "" + PathSeparator + "" + "resultats" + PathSeparator
+				+ "";
 
 		fileName = scriptfile.getName();
 		String cleanFile = resPath + fileName;
 		File f = new File(cleanFile);
-		String logFile = logPath + "\\" + fileName.substring(0, fileName.length() - 4) + "_Log.txt";
+		String logFile = logPath + "" + PathSeparator + "" + fileName.substring(0, fileName.length() - 4) + "_Log.txt";
 		File f1 = new File(logFile);
 
 		f.createNewFile();
@@ -476,8 +514,6 @@ public class ExecuteFileController {
 
 		// splitfile.ExtractQuery(sc, session.getCnx());
 		startdbThread(sc, session.getCnx());
-
-		sc1.close();
 
 	}
 
@@ -527,26 +563,45 @@ public class ExecuteFileController {
 		if (session.getCnx().isClosed()) {
 			session.setCnx(session.getCnxNew());
 		}
+		///// Showing movingGears
+		welcomecontroller.getMovingGears().setVisible(true);
+		welcomecontroller.getOnTopPane().setVisible(true);
+		/////
+
 //		if (str.endsWith(";")) {
 //			str = str.replace(str.substring(str.length() - 1), "");
 //		}
 		try {
 
 			dbconnexion.executeQuery(str, session.getCnx());
-			continueScript_Sequential();
-			/// mise à jour de la table File (currentLine)
-			com.sopraMdv.anotherProject.entities.FileHistory fichier = new com.sopraMdv.anotherProject.entities.FileHistory(
-					fileDao.getFileById(session.getIdFile()));
-			fichier.setCurrentline(session.getLine());
-			fileDao.save(fichier);
-			///////////////////// fin mise à jour
-			welcomecontroller.getExecutebtn().setVisible(false);
 
-		} catch (Exception e) {
+//			/// mise à jour de la table File (currentLine)
+//			com.sopraMdv.anotherProject.entities.FileHistory fichier = new com.sopraMdv.anotherProject.entities.FileHistory(
+//					fileDao.getFileById(session.getIdFile()));
+//			fichier.setCurrentline(session.getLine());
+//			fileDao.save(fichier);
+//			///////////////////// fin mise à jour
+//			welcomecontroller.getExecutebtn().setVisible(false);
+//			// continuer l'execution
+//			continueScript_Sequential();
+
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			//PopUp.errorPopUp("Echec", "ok");
+			if (session.getCnx() == null || session.getCnx().isClosed()) {
+				return;
+			}
+			System.out.println("a warning occurred;");
 		}
+		com.sopraMdv.anotherProject.entities.FileHistory fichier = new com.sopraMdv.anotherProject.entities.FileHistory(
+				fileDao.getFileById(session.getIdFile()));
+		fichier.setCurrentline(session.getLine());
+		if (session.getLine() != null) {
+			fileDao.save(fichier);
+		}
+		///////////////////// fin mise à jour
+		welcomecontroller.getExecutebtn().setVisible(false);
+		continueScript_Sequential();
 	}
 
 	public void editScript() {
@@ -566,12 +621,15 @@ public class ExecuteFileController {
 		// System.out.println(joinString1);
 		com.sopraMdv.anotherProject.entities.FileHistory fichier = new com.sopraMdv.anotherProject.entities.FileHistory(
 				fileDao.getFileById(session.getIdFile()));
-		String Cashpath = welcomecontroller.getCachePath() + "\\MDVApp\\Cache\\";
-		String resPath = Cashpath + fichier.getKit().getNomKit() + "\\" + "resultats\\";
+		String Cashpath = welcomecontroller.getCachePath() + "" + PathSeparator + "MDVApp" + PathSeparator + "Cache"
+				+ PathSeparator + "";
+		String resPath = Cashpath + fichier.getKit().getNomKit() + "" + PathSeparator + "" + "resultats" + PathSeparator
+				+ "";
 		String cleanFile = resPath + fichier.getFileName();
-		String logFile = fichier.getLogpath() + "\\"
+		String logFile = fichier.getLogpath() + "" + PathSeparator + ""
 				+ fichier.getFileName().substring(0, fichier.getFileName().length() - 4) + "_Log.txt";
-		Files.write(Paths.get(cleanFile), joinString1.getBytes(), StandardOpenOption.APPEND);
+		// Files.write(Paths.get(cleanFile), joinString1.getBytes(),
+		// StandardOpenOption.APPEND);
 		Files.write(Paths.get(logFile), joinString1.getBytes(), StandardOpenOption.APPEND);
 		continueScript();
 	}

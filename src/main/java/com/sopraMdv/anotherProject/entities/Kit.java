@@ -39,22 +39,36 @@ public class Kit {
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	private DataBase database;
+	
+	private String adressIpServeur;
+	
+	private String utilisateurServeur;
+	
+	private String motDePassUtilisateurServeur;
+	
+	private String repertoireDeTravail;
 
 	public Kit() {
 		super();
 	}
 
 	public Kit(Long id, @NotEmpty String nomKit, String descriptionKit, Set<ProgrammeDeReprise> progReprises,
-			Set<FileHistory> filesExecutes, String scripts, DataBase database, String scriptsPath) {
+			Set<FileHistory> filesExecuted, String scripts, String scriptsPath, DataBase database,
+			String adressIpServeur, String utilisateurServeur, String motDePassUtilisateurServeur,
+			String repertoireDeTravail) {
 		super();
 		this.id = id;
 		this.nomKit = nomKit;
 		this.descriptionKit = descriptionKit;
 		this.progReprises = progReprises;
-		this.filesExecuted = filesExecutes;
+		this.filesExecuted = filesExecuted;
 		this.scripts = scripts;
-		this.database = database;
 		this.scriptsPath = scriptsPath;
+		this.database = database;
+		this.adressIpServeur = adressIpServeur;
+		this.utilisateurServeur = utilisateurServeur;
+		this.motDePassUtilisateurServeur = motDePassUtilisateurServeur;
+		this.repertoireDeTravail = repertoireDeTravail;
 	}
 
 	public Kit(Kit kit) {
@@ -66,6 +80,10 @@ public class Kit {
 		this.scripts = kit.scripts;
 		this.database = kit.database;
 		this.scriptsPath = kit.scriptsPath;
+		this.adressIpServeur = kit.adressIpServeur;
+		this.utilisateurServeur = kit.utilisateurServeur;
+		this.motDePassUtilisateurServeur = kit.motDePassUtilisateurServeur;
+		this.repertoireDeTravail = kit.repertoireDeTravail;
 	}
 
 	public Long getId() {
@@ -131,16 +149,48 @@ public class Kit {
 	public void setScriptsPath(String scriptsPath) {
 		this.scriptsPath = scriptsPath;
 	}
+	
+	
+
+	public String getAdressIpServeur() {
+		return adressIpServeur;
+	}
+
+	public void setAdressIpServeur(String adressIpServeur) {
+		this.adressIpServeur = adressIpServeur;
+	}
+
+	public String getUtilisateurServeur() {
+		return utilisateurServeur;
+	}
+
+	public void setUtilisateurServeur(String utilisateurServeur) {
+		this.utilisateurServeur = utilisateurServeur;
+	}
+
+	public String getMotDePassUtilisateurServeur() {
+		return motDePassUtilisateurServeur;
+	}
+
+	public void setMotDePassUtilisateurServeur(String motDePassUtilisateurServeur) {
+		this.motDePassUtilisateurServeur = motDePassUtilisateurServeur;
+	}
+
+	public String getRepertoireDeTravail() {
+		return repertoireDeTravail;
+	}
+
+	public void setRepertoireDeTravail(String repertoireDeTravail) {
+		this.repertoireDeTravail = repertoireDeTravail;
+	}
 
 	@Override
 	public String toString() {
 		return "Kit [id=" + id + ", nomKit=" + nomKit + ", descriptionKit=" + descriptionKit + ", progReprises="
-				+ progReprises + ", filesExecutes=" + filesExecuted + ", scripts=" + scripts + ", scriptsPath="
-				+ scriptsPath + ", database=" + database + "]";
+				+ progReprises + ", filesExecuted=" + filesExecuted + ", scripts=" + scripts + ", scriptsPath="
+				+ scriptsPath + ", database=" + database + ", adressIpServeur=" + adressIpServeur
+				+ ", UtilisateurServeur=" + utilisateurServeur + ", motDePassUtilisateurServeur="
+				+ motDePassUtilisateurServeur + ", repertoireDeTravail=" + repertoireDeTravail + "]";
 	}
-
-
-
-
 
 }

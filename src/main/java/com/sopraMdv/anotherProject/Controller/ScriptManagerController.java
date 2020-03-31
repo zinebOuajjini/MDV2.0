@@ -104,8 +104,8 @@ public class ScriptManagerController {
 
 	@FXML
 	private void initialize() {
-		savingstaus = false;
-		savingSwitch.setImage(new Image("/Resources/switch-off.png", false));
+		savingstaus = true;
+		savingSwitch.setImage(new Image("/Resources/switch-on.png", false));
 	}
 
 	public void runNewQuery() throws SQLException, IOException {
@@ -125,6 +125,8 @@ public class ScriptManagerController {
 
 		if (!str.isEmpty()) {
 			try {
+				correctQuery.setStyle("-fx-text-inner-color : yellow;");
+				correctQuery.setText("en attente...");
 				dbConnexion.executeNewQuery(str, session.getCnx(),savingstaus);
 				correctQuery.setStyle("-fx-text-inner-color : green;");
 				correctQuery.setText("requette exécutée");
@@ -154,5 +156,12 @@ public class ScriptManagerController {
 			savingstaus = true;
 			savingSwitch.setImage(new Image("/Resources/switch-on.png", false));
 		}
+	}
+	
+	@FXML
+	public void refresh() {
+		resultat.setText("");
+		correctQuery.setText("");
+		scriptEditor.setText("");
 	}
 }

@@ -29,10 +29,15 @@ import com.sopraMdv.anotherProject.dao.FileHistoryDAO;
 import com.sopraMdv.anotherProject.entities.DataBase;
 import com.sopraMdv.anotherProject.entities.Server;
 
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 
 @Controller
 public class DataBaseConnexion {
+
+	private static final String PathSeparator = System.getProperty("file.separator");
 
 	private Connection connection = null;
 	private Session session = null;
@@ -106,17 +111,18 @@ public class DataBaseConnexion {
 			}
 
 			Class.forName(driverName);
-		
+
 			connection = DriverManager.getConnection(
 					"jdbc:oracle:thin:@" + db.getHote() + ":" + db.getPort() + ":" + db.getSid(), db.getSchemaDB(),
 					db.getPasswordDb());
-			System.out.println("Connection to database established!");
+			System.out.println("Connecté à la Base de Donnée!");
 
 		} catch (Exception e) {
 
 			e.printStackTrace();
 			// session.disconnect();
 			welcomecontroller.MyAlert(AlertType.ERROR, "Erreur de connexion", null, "echec de connexion au BD ");
+			welcomecontroller.getOnTopPane().setVisible(false);
 			return null;
 		}
 		return connection;
@@ -138,95 +144,78 @@ public class DataBaseConnexion {
 		session.setPortForwardingL(1521, server.getHote(), 22);
 		return session;
 	}
-	
+
 	@Transactional
 	public void executeQuery(String sql, Connection connection) throws SQLException, IOException {
 
-		Statement cs  = null;
+		Statement cs = null;
 		if (connection == null) {
 			welcomecontroller.MyAlert(AlertType.ERROR, "Erreur de connexion", null, "echec de connexion au BD ");
 
 		} else {
 			com.sopraMdv.anotherProject.entities.FileHistory fichier = new com.sopraMdv.anotherProject.entities.FileHistory(
 					fileDao.getFileById(sessionController.getIdFile()));
-			String Cashpath = welcomecontroller.getCachePath() + "\\MDVApp\\Cache\\";
-			String resPath = Cashpath + fichier.getKit().getNomKit() + "\\" + "resultats\\";
+			String Cashpath = sessionController.getAppLogPath() + "" + PathSeparator + "MDVApp" + PathSeparator
+					+ "Cache" + PathSeparator + "";
+			String resPath = Cashpath + fichier.getKit().getNomKit() + "" + PathSeparator + "" + "resultats"
+					+ PathSeparator + "";
 			String cleanFile = resPath + fichier.getFileName();
-			String logFile = fichier.getLogpath() + "\\"
+			String logFile = fichier.getLogpath() 
 					+ fichier.getFileName().substring(0, fichier.getFileName().length() - 4) + "_Log.txt";
 			Statement ps = connection.createStatement();
-			System.out.println("NOM DE KIT" + fichier.getKit().getNomKit());
-			System.out.println(sessionController.getLine());
-			System.out.println(sql);
-			
-			   DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
-		       Date start = new Date();
-		       System.out.println(df.format(start));
-		       
-			//insert into MigrationProcessLog
-			
-			cs = connection.createStatement();
-			String sql1 = "insert into  MIGRATIONPROCESSLOG"+
-					"(starttime,"+
-					"SCRIPTNAME,"+
-					"STEPNAME,)"+
-					"values ("+  df.format(start)+","+
-					fichier.getFileName()+","+
-					sessionController.getLine()+","+
-					sql+")";	
-			ps.execute(sql1);
-			
-			ps.execute(sql);
-			
-			//update sur migrationprocess et  migrationprocesslog
-			 Date stop = new Date();
-		       System.out.println(df.format(stop));
-			  
-			
-			String sql2 = "UPDATE  MIGRATIONPROCESS"+
-						" SET     DATEEXEC       = "+ df.format(stop)+
-						" SCRIPTNAME      = "+fichier.getFileName()+","+
-						" LINENUMBER        = "+sessionController.getLine()+","+
-									"WHERE   nomKit = "+fichier.getKit().getNomKit();
-			
-           
-			String sql3 =  "update  MIGRATIONPROCESSLOG set "+
-					"stoptime = "+df.format(stop)+
-					"SQLERRCODE = "+0+
-					"SQLERRMESS = "+ null+" where "+ sql +"=REQUETE" ;
-								
-			
-			
-			ps.execute(sql2);
-			ps.execute(sql3);
-			
-			
-			System.out.println(sessionController.getLine());
-			/// mise à jour de la table File (currentLine)
-			fichier.setCurrentline(sessionController.getLine());
-			fileDao.save(fichier);
-		
-			
-			///////////////////// fin mise à jour
-			if (!sql.replaceAll(" ", "").endsWith(";")) {
-				sql = sql + ";";
-			}
-			Files.write(Paths.get(cleanFile), (sql + "\n").getBytes(), StandardOpenOption.APPEND);
-			Files.write(Paths.get(logFile),
-					("/* ------------------------------   Succés   -------------------------------  \n\n" + sql
-							+ "\n -------------------------------------------------------------------------  */\n")
-									.getBytes(),
-					StandardOpenOption.APPEND);
 
-			
-//			******this block is for testing the split algo*****
-//			Files.write(Paths.get(logFile),
-//			(" ------------------------------   line : " + fichier.getCurrentline() + "   -------------------------------  \n\n" + sql
-//					+ "\n\n -------------------------------------------------------------------------  \n\n")
-//							.getBytes(),
-//			StandardOpenOption.APPEND);
-//			*************************
-			
+			DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+			Date start = new Date();
+
+			ps.execute(sql);
+
+			String sql1 = "insert into  MIGRATIONPROCESSLOG " + "(starttime,STOPTIME, SCRIPTNAME,STEPNAME,SQLERRCODE)"
+					+ "values ('" + sessionController.getSqlStartDate() + "','" + df.format(new Date()) + "','"
+					+ fichier.getFileName() + "'," + sessionController.getLine() + ",'" + "0" + "')";
+			// System.out.println(sql1);
+			cs = connection.createStatement();
+			cs.execute(sql1);
+			cs.close();
+
+			fichier.setCurrentline(sessionController.getLine());
+			if(sessionController.getLine() != null) {
+				fileDao.save(fichier);
+			}
+			try {
+				Files.write(Paths.get(cleanFile), (sql + "\n").getBytes(), StandardOpenOption.APPEND);
+			} catch (Exception ex) {
+				Platform.runLater(() -> {
+					Alert alert = new Alert(AlertType.CONFIRMATION);
+					alert.setTitle("erreur");
+					alert.setHeaderText("fichier non trouvé: \n" + cleanFile);
+					alert.setContentText(ex.getMessage());
+					if (alert.showAndWait().get() == ButtonType.OK) {
+
+					}
+				});
+				welcomecontroller.stopScript(0);
+			}
+
+			try {
+				Files.write(Paths.get(logFile),
+						("/* ------------------------------   Succés ligne : " + sessionController.getLine()
+								+ "  -------------------------------  \n\n" + sql
+								+ "\n -------------------------------------------------------------------------  */\n")
+										.getBytes(),
+						StandardOpenOption.APPEND);
+			} catch (Exception ex) {
+				Platform.runLater(() -> {
+					Alert alert = new Alert(AlertType.CONFIRMATION);
+					alert.setTitle("erreur");
+					alert.setHeaderText("fichier non trouvé: \n" + logFile);
+					alert.setContentText(ex.getMessage());
+					if (alert.showAndWait().get() == ButtonType.OK) {
+
+					}
+				});
+				welcomecontroller.stopScript(0);
+			}
+
 			ps.close();
 		}
 	}
@@ -240,10 +229,12 @@ public class DataBaseConnexion {
 		} else {
 			com.sopraMdv.anotherProject.entities.FileHistory fichier = new com.sopraMdv.anotherProject.entities.FileHistory(
 					fileDao.getFileById(sessionController.getIdFile()));
-			String Cashpath = welcomecontroller.getCachePath() + "\\MDVApp\\Cache\\";
-			String resPath = Cashpath + fichier.getKit().getNomKit() + "\\" + "resultats\\";
+			String Cashpath = welcomecontroller.getCachePath() + "" + PathSeparator + "MDVApp" + PathSeparator + "Cache"
+					+ PathSeparator + "";
+			String resPath = Cashpath + fichier.getKit().getNomKit() + "" + PathSeparator + "" + "resultats"
+					+ PathSeparator + "";
 			String cleanFile = resPath + fichier.getFileName();
-			String logFile = fichier.getLogpath() + "\\"
+			String logFile = fichier.getLogpath() + "" + PathSeparator + ""
 					+ fichier.getFileName().substring(0, fichier.getFileName().length() - 4) + "_Log.txt";
 			Statement ps = connection.createStatement();
 			ps.execute(sql);
@@ -267,9 +258,10 @@ public class DataBaseConnexion {
 //			}
 //			sessionController.setQueryResult(row);
 
-			if (!sql.replaceAll(" ", "").endsWith(";")) {
-				sql = sql + ";";
-			}
+//			if (!sql.replaceAll(" ", "").endsWith(";")) {
+//				sql = sql + ";";
+//			}
+			sql = sql.replaceAll("\n", " ");
 			if (savingStatus) {
 				Files.write(Paths.get(cleanFile), (sql + "\n").getBytes(), StandardOpenOption.APPEND);
 				Files.write(Paths.get(logFile),

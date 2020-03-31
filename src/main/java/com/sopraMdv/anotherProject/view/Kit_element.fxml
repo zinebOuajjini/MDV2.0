@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="200.0" prefWidth="186.0" style="-fx-background-color: white; -fx-border-color: EDEDEF; -fx-background-radius: 5; -fx-border-radius: 10; -fx-border-width: 2.5;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sopraMdv.anotherProject.Controller.KitElementController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="200.0" prefWidth="186.0" style="-fx-background-color: white; -fx-border-color: EDEDEF; -fx-background-radius: 5; -fx-border-radius: 10; -fx-border-width: 2.5;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sopraMdv.anotherProject.Controller.KitElementController">
    <children>
-      <Label fx:id="chosebtn" alignment="CENTER" contentDisplay="CENTER" layoutX="41.0" layoutY="141.0" prefHeight="40.0" prefWidth="105.0" style="-fx-border-color: #3498DB; -fx-border-width: 0.5; -fx-border-radius: 50; -fx-background-radius: 50;" styleClass="mainbutton" text="consulter" textFill="#6e6e6e">
+      <Label fx:id="chosebtn" alignment="CENTER" contentDisplay="CENTER" layoutX="41.0" layoutY="146.0" prefHeight="40.0" prefWidth="105.0" style="-fx-border-color: #3498DB; -fx-border-width: 0.5; -fx-border-radius: 50; -fx-background-radius: 50;" styleClass="mainbutton" text="consulter" textFill="#6e6e6e">
          <font>
             <Font name="Verdana" size="14.0" />
          </font>
@@ -18,7 +18,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
-      <Label fx:id="description" alignment="TOP_CENTER" contentDisplay="TOP" layoutX="20.0" layoutY="88.0" prefHeight="50.0" prefWidth="147.0" text="Description" textAlignment="CENTER" textFill="#a2a2a4">
+      <Label fx:id="description" alignment="TOP_CENTER" contentDisplay="TOP" layoutX="20.0" layoutY="88.0" prefHeight="50.0" prefWidth="147.0" text="Description" textAlignment="CENTER" textFill="#a2a2a4" wrapText="true">
          <font>
             <Font name="Verdana" size="14.0" />
          </font>

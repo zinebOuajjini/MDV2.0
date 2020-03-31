@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="Environnement" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="591.0" prefWidth="881.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sopraMdv.anotherProject.Controller.Kit_modificationController">
+   <children>
+      <VBox alignment="CENTER" layoutX="237.0" layoutY="172.0" prefHeight="327.0" prefWidth="408.0" spacing="20.0">
+         <children>
+            <TextField fx:id="nomKit" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="44.0" prefWidth="388.0" promptText="nom ">
+               <padding>
+                  <Insets left="8.0" top="2.0" />
+               </padding>
+            </TextField>
+            <TextArea fx:id="descKit" prefHeight="65.0" prefWidth="388.0" promptText="description . . . " />
+            <TextField fx:id="ipServeurKit" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="44.0" prefWidth="388.0" promptText="\@ IP du serveur ">
+               <padding>
+                  <Insets left="8.0" top="2.0" />
+               </padding>
+            </TextField>
+            <TextField fx:id="utilisateurServeurKit" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="44.0" prefWidth="388.0" promptText="Utilisateur">
+               <padding>
+                  <Insets left="8.0" top="2.0" />
+               </padding>
+            </TextField>
+            <PasswordField fx:id="passServeurKit" alignment="CENTER" prefHeight="44.0" prefWidth="388.0" promptText="mot de pass" />
+            <TextField fx:id="repServeurKit" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="44.0" prefWidth="388.0" promptText="Repertoire de travail">
+               <padding>
+                  <Insets left="8.0" top="2.0" />
+               </padding>
+            </TextField>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="456.0" layoutY="506.0" onMouseClicked="#editKit" prefHeight="40.0" prefWidth="150.0" style="-fx-border-color: #3498DB; -fx-border-width: 0.5; -fx-border-radius: 50; -fx-background-radius: 50;" styleClass="mainbutton" text="enregistrer" textFill="#6e6e6e">
+         <font>
+            <Font name="Verdana" size="15.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="240.0" layoutY="44.0" prefHeight="40.0" prefWidth="401.0" text="Nouveau kit de migration" textFill="#6e6e6e">
+         <font>
+            <Font name="Verdana" size="28.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="275.0" layoutY="506.0" onMouseClicked="#cancel" prefHeight="40.0" prefWidth="150.0" style="-fx-border-color: #3498DB; -fx-border-width: 0.5; -fx-border-radius: 50; -fx-background-radius: 50;" styleClass="mainbutton" text="anuuler" textFill="#6e6e6e">
+         <font>
+            <Font name="Verdana" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="errorLabel" alignment="CENTER" layoutX="246.0" layoutY="95.0" prefHeight="80.0" prefWidth="388.0" textFill="#fc3333">
+         <font>
+            <Font name="Roboto Light" size="15.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

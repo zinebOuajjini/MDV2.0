@@ -2,6 +2,8 @@ package com.sopraMdv.anotherProject.Controller;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Date;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +32,30 @@ public class Session {
 
 	private Connection cnx;
 	
+	private String sqlStartDate;
+	
 	private Long line,preLine;
 	
 	private int isExePaused;// 0 : not paused |1 : paused | 2 : paused but in initial state.
 	
 	private boolean isFileDone;// True if file has reached end| False if file hasn't reached end yet.
 	
+	private LinkedList<String> scriptLines;
+	
+	private String appLogPath;
+	
+	public String getAppLogPath() {
+		return appLogPath;
+	}
+	public void setAppLogPath(String appLogPath) {
+		this.appLogPath = appLogPath;
+	}
+	public LinkedList<String> getScriptLines() {
+		return scriptLines;
+	}
+	public void setScriptLines(LinkedList<String> scriptLines) {
+		this.scriptLines = scriptLines;
+	}
 	public ExecuteFileController getExecutefile() {
 		return executefile;
 	}
@@ -75,7 +95,6 @@ public class Session {
 	public void setIdFile(Long idFile) {
 		IdFile = idFile;
 	}
-
 
 	public Kit getKit() {
 		return kit;
@@ -118,5 +137,13 @@ public class Session {
 	public void setFileopenerPath(String fileopenerPath) {
 		this.fileopenerPath = fileopenerPath;
 	}
+	public String getSqlStartDate() {
+		return sqlStartDate;
+	}
+	public void setSqlStartDate(String sqlStartDate) {
+		this.sqlStartDate = sqlStartDate;
+	}
+	
+	
 
 }

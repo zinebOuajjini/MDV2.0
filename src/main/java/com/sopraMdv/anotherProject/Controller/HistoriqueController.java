@@ -4,9 +4,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.CopyOption;
+import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Scanner;
@@ -39,7 +43,9 @@ import javafx.stage.DirectoryChooser;
 @Controller
 public class HistoriqueController {
 
-	private File directory = Paths.get(System.getProperty("user.home") + "\\Desktop").toFile();
+	private static final String PathSeparator = System.getProperty("file.separator");
+
+	private File directory = Paths.get(System.getProperty("user.home")).toFile();
 
 	@FXML
 	private Pane listelements;
@@ -59,7 +65,6 @@ public class HistoriqueController {
 	@FXML
 	private Label nomKitLabel;
 
-	
 	private DataBaseDAO dbDAO;
 
 	public DataBaseDAO getDbDAO() {
@@ -156,7 +161,6 @@ public class HistoriqueController {
 				if (!element.equals("")) {
 					tmpFile.setFileName(element);
 					AddElemnt(tmpFile);
-					System.out.println(element);
 				}
 			}
 
@@ -188,16 +192,15 @@ public class HistoriqueController {
 
 			idh.setText(file.getId().toString());
 
-			if(session.getKit().getDatabase() != null)
-			statusLabel.setText(session.getKit().getDatabase().getSid());
+			if (session.getKit().getDatabase() != null)
+				statusLabel.setText(session.getKit().getDatabase().getSid());
 
 			progress.setProgress((float) file.getCurrentline() / file.getLines());
-			
-			progressVal =  ((double) file.getCurrentline() / file.getLines()) * 100;
-			if(progressVal>100)
+
+			progressVal = ((double) file.getCurrentline() / file.getLines()) * 100;
+			if (progressVal > 100)
 				progressVal = 100;
-			progressLabel.setText(
-					(new DecimalFormat("##.##")).format(progressVal) + "%");
+			progressLabel.setText((new DecimalFormat("##.##")).format(progressVal) + "%");
 
 			if (file.getCurrentline() >= file.getLines()) {
 				fileimg.setImage(new Image("/Resources/check-mark.png", false));
@@ -215,8 +218,8 @@ public class HistoriqueController {
 				}
 //				String envnom = dbDAO.getDatabaseById(file.getDatabase().getId()).getServer().getEnvi().getNomEnv();
 				welcomecontroller.setAndShowMessage(t,
-						 "Fichier : " + file.getFileName() + "\nLog path : "
-								+ file.getLogpath() + "\nnombre de lignes : " + file.getLines() + "\nligne atteinte : "
+						"Fichier : " + file.getFileName() + "\nLog path : " + file.getLogpath()
+								+ "\nnombre de lignes : " + file.getLines() + "\nligne atteinte : "
 								+ file.getCurrentline() + "\nDate debut : " + file.getDateDebut() + dateFin,
 						t.getSceneX() - 150, t.getSceneY() - 70);
 			});
@@ -233,7 +236,6 @@ public class HistoriqueController {
 						session.setIdFile(Long.parseLong(idh.getText()));
 						session.setExePaused(0);
 						mainController.setSelectedFile(new java.io.File(file.getPath()));
-						System.out.println(mainController.getSelectedFile().getCanonicalPath());
 						session.setScanner(getScanner(file));
 						session.setLine(file.getCurrentline());
 						welcomecontroller.loadInMainPane(welcomecontroller.getMainpane(), "Scripts");
@@ -247,8 +249,8 @@ public class HistoriqueController {
 						welcomecontroller.getOnTopScriptName().setText(file.getFileName());
 
 						executefile.continueScript();
-					}else
-						System.out.println("connexion nuuuuuuuuuuuuuuuuuuuuuul");
+					} else
+						System.out.println("verifier la connection a la BD");
 					////////////////
 				} catch (IOException | NumberFormatException | SQLException e) {
 					// TODO Auto-generated catch block
@@ -270,7 +272,7 @@ public class HistoriqueController {
 					//// delete fichier from kit(filesexecutes)
 					Set<FileHistory> tmp = new HashSet<FileHistory>();
 					for (FileHistory tmpelement : session.getKit().getFilesExecutes()) {
-						System.out.println("|" + tmpelement.getId() + "||" + fichier.getId() + "|");
+						//System.out.println("|" + tmpelement.getId() + "||" + fichier.getId() + "|");
 						if (!tmpelement.getId().equals(fichier.getId())) {
 							tmp.add(tmpelement);
 						}
@@ -316,7 +318,17 @@ public class HistoriqueController {
 
 	public Scanner getScanner(FileHistory fichier) throws FileNotFoundException, IOException {
 		int a = 0;
-		FileReader file = new FileReader(mainController.getSelectedFile().getCanonicalPath());
+		FileReader file = null;
+		try {
+			file = new FileReader(mainController.getSelectedFile().getCanonicalPath());
+		} catch (Exception ex) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("erreur ");
+			alert.setHeaderText("fichier non trouvé");
+			alert.setContentText(ex.getMessage());
+			alert.showAndWait();
+			session.setExePaused(2);
+		}
 		Scanner sc = new Scanner(file);
 		if (fichier.getCurrentline() == 0)
 			return sc;
@@ -350,14 +362,17 @@ public class HistoriqueController {
 
 				session.setScanner(getScanner(element));
 				executefile.continueScript_Sequential();
-				return;
+				if (!session.isFileDone()) {
+					return;
+				}
 			}
 		}
 
 		String[] scriptsUnExecuted = session.getKit().getScripts().split(";");
 		File file;
-		String Cashpath = welcomecontroller.getCachePath() + "\\MDVApp\\Cache\\";
-		System.out.println(scriptsUnExecuted);
+		String Cashpath = welcomecontroller.getCachePath() + "" + PathSeparator + "MDVApp" + PathSeparator + "Cache"
+				+ PathSeparator + "";
+		// System.out.println(scriptsUnExecuted);
 		if (session.getKit().getDatabase() == null) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setContentText("vous avez oublié de choisir une base de données!!");
@@ -368,7 +383,8 @@ public class HistoriqueController {
 
 					session.setExePaused(0);
 					session.setLine(0L);
-					file = new File(Cashpath + "\\" + session.getKit().getNomKit() + "\\" + "scripts\\" + element);
+					file = new File(Cashpath + "" + PathSeparator + "" + session.getKit().getNomKit() + ""
+							+ PathSeparator + "" + "scripts" + PathSeparator + "" + element);
 					mainController.setSelectedFile(file);
 					welcomecontroller.getOnTopScriptName().setText(element);
 					///// Showing movingGears
@@ -377,7 +393,9 @@ public class HistoriqueController {
 					/////
 
 					executefile.executeScript_Sequential(file);
-					return;
+					if (!session.isFileDone()) {
+						return;
+					}
 				}
 			}
 		}
@@ -388,29 +406,44 @@ public class HistoriqueController {
 	@FXML
 	public void getDirectory() throws IOException {
 
-		String Cashpath = welcomecontroller.getCachePath() + "\\MDVApp\\Cache\\";
-		String cmd = "CMD /C mkdir " + Cashpath + "\\" + session.getKit().getNomKit();
-		Runtime.getRuntime().exec(cmd);
-		cmd = "CMD /C mkdir " + Cashpath + "\\" + session.getKit().getNomKit() + "\\" + "scripts";
-		Runtime.getRuntime().exec(cmd);
-		cmd = "CMD /C mkdir " + Cashpath + "\\" + session.getKit().getNomKit() + "\\" + "logs";
-		Runtime.getRuntime().exec(cmd);
-		cmd = "CMD /C mkdir " + Cashpath + "\\" + session.getKit().getNomKit() + "\\" + "resultats";
-		Runtime.getRuntime().exec(cmd);
+		String Cashpath = welcomecontroller.getCachePath() + "" + PathSeparator + "MDVApp" + PathSeparator + "Cache"
+				+ PathSeparator + "";
+//		String cmd = "CMD /C mkdir " + Cashpath + ""+PathSeparator+"" + session.getKit().getNomKit();
+//		Runtime.getRuntime().exec(cmd);
+		new File(Cashpath + "" + PathSeparator + "" + session.getKit().getNomKit()).mkdirs();
+//		cmd = "CMD /C mkdir " + Cashpath + ""+PathSeparator+"" + session.getKit().getNomKit() + ""+PathSeparator+"" + "scripts";
+//		Runtime.getRuntime().exec(cmd);
+		new File(
+				Cashpath + "" + PathSeparator + "" + session.getKit().getNomKit() + "" + PathSeparator + "" + "scripts")
+						.mkdirs();
+//		cmd = "CMD /C mkdir " + Cashpath + ""+PathSeparator+"" + session.getKit().getNomKit() + ""+PathSeparator+"" + "logs";
+//		Runtime.getRuntime().exec(cmd);
+		new File(Cashpath + "" + PathSeparator + "" + session.getKit().getNomKit() + "" + PathSeparator + "" + "logs")
+				.mkdirs();
+//		cmd = "CMD /C mkdir " + Cashpath + ""+PathSeparator+"" + session.getKit().getNomKit() + ""+PathSeparator+"" + "resultats";
+//		Runtime.getRuntime().exec(cmd);
+		new File(Cashpath + "" + PathSeparator + "" + session.getKit().getNomKit() + "" + PathSeparator + ""
+				+ "resultats").mkdirs();
 
 		DirectoryChooser chooser = new DirectoryChooser();
 		directory = chooser.showDialog(null);
-		// System.out.println("1 |"+directory);
+		File[] files = directory.listFiles();
+		//trier les fichiers
+		Arrays.sort(files, (f1, f2) -> f1.compareTo(f2));
 		if (directory != null) {
 			session.getKit().setScripts("");
 			// System.out.println("2 |"+directory);
-			for (File element : directory.listFiles()) {
+			for (File element : files) {
 				if (element.isFile() && element.getName().endsWith(".sql")) {
 					session.getKit().setScripts(session.getKit().getScripts() + ";" + element.getName());
 					kitdao.save(session.getKit());
-					cmd = "CMD /C COPY /Y " + "\"" + element.getCanonicalPath() + "\" \"" + Cashpath + "\\"
-							+ session.getKit().getNomKit() + "\\scripts\\" + element.getName() + "\"";
-					Runtime.getRuntime().exec(cmd);
+					Files.copy(Paths.get(element.getCanonicalPath()),
+							Paths.get(Cashpath + "" + PathSeparator + "" + session.getKit().getNomKit() + ""
+									+ PathSeparator + "scripts" + PathSeparator + "" + element.getName()),
+							StandardCopyOption.REPLACE_EXISTING);
+//					cmd = "CMD /C COPY /Y " + "\"" + element.getCanonicalPath() + "\" \"" + Cashpath + ""+PathSeparator+""
+//							+ session.getKit().getNomKit() + ""+PathSeparator+"scripts"+PathSeparator+"" + element.getName() + "\"";
+//					Runtime.getRuntime().exec(cmd);
 				}
 			}
 			listelements.getChildren().setAll();
@@ -427,6 +460,6 @@ public class HistoriqueController {
 
 	@FXML
 	public void goBack() throws IOException {
-		welcomecontroller.loadInMainPane(welcomecontroller.getMainpane(), "kit_info");
+		welcomecontroller.loadInMainPane(welcomecontroller.getMainpane(), "Kit_info");
 	}
 }

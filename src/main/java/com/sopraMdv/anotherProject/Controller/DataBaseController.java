@@ -5,15 +5,18 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
+
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
 import com.sopraMdv.anotherProject.dao.DataBaseDAO;
 import com.sopraMdv.anotherProject.dao.KitDAO;
-import com.sopraMdv.anotherProject.dao.ServerDAO;
 import com.sopraMdv.anotherProject.entities.DataBase;
+
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -155,19 +158,19 @@ public class DataBaseController {
 		dbName4Url.setPrefHeight(40.0);
 		typeDB.getItems().addAll(types);
 		typeDB.getSelectionModel().select(0); // oracle by default
-		typeDB.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
-			if (newValue.equals("Informix")) {
-				sidDB.setPromptText("Informix Instance");
-				DBform.getChildren().remove(4, 6);
-				DBform.getChildren().addAll(4, informixCollection);
-			} else if (newValue.equals("Oracle")) {
-				sidDB.setVisible(true);
-				sidDB.setPromptText("Oracle SID");
-				DBform.getChildren().remove(4, 7);
-				DBform.getChildren().addAll(4, oracleCollection);
-			}
-
-		});
+//		typeDB.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+//			if (newValue.equals("Informix")) {
+//				sidDB.setPromptText("Informix Instance");
+//				DBform.getChildren().remove(4, 6);
+//				DBform.getChildren().addAll(4, informixCollection);
+//			} else if (newValue.equals("Oracle")) {
+//				sidDB.setVisible(true);
+//				sidDB.setPromptText("Oracle SID");
+//				DBform.getChildren().remove(4, 7);
+//				DBform.getChildren().addAll(4, oracleCollection);
+//			}
+//
+//		});
 		validator = Validation.buildDefaultValidatorFactory().getValidator();
 		Platform.runLater(() -> ((VBox) passwordDB.getParent()).requestFocus());
 		//

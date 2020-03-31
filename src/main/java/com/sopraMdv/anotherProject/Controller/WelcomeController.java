@@ -12,6 +12,7 @@ import com.sopraMdv.anotherProject.AnotherProjectApplication;
 import com.sopraMdv.anotherProject.dao.DataBaseDAO;
 import com.sopraMdv.anotherProject.dao.FileHistoryDAO;
 import com.sopraMdv.anotherProject.dao.ServerDAO;
+import com.sopraMdv.anotherProject.util.DBService;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -167,6 +168,18 @@ public class WelcomeController {
 	public void setFileDao(FileHistoryDAO fileDao) {
 		this.fileDao = fileDao;
 	}
+	
+	private HistoriqueController historiqueController;
+	
+
+	public HistoriqueController getHistoriqueController() {
+		return historiqueController;
+	}
+
+	@Autowired
+	public void setHistoriqueController(HistoriqueController historiqueController) {
+		this.historiqueController = historiqueController;
+	}
 
 	public Label getTitre() {
 		return titre;
@@ -291,6 +304,17 @@ public class WelcomeController {
 	}
 
 	private int transitionDirection;
+	
+	private DBService service;
+
+	public DBService getService() {
+		return service;
+	}
+
+	@Autowired
+	public void setService(DBService service) {
+		this.service = service;
+	}
 
 	@FXML
 	private void initialize() {
@@ -301,7 +325,6 @@ public class WelcomeController {
 //		btnChooser.setVisible(false);
 		stopBtn.setVisible(false);
 //		dbChooser.setVisible(false);
-		System.out.println(movingGears.isVisible());
 		imageChanger.setVisible(false);
 		session.setExePaused(2);
 		executebtn.setImage(new Image("/Resources/fa-play.png", false));
@@ -316,6 +339,7 @@ public class WelcomeController {
 		connectstate.setStyle("-fx-Fill : #ff0400");
 		messagePane.setVisible(false);
 		movingGears.setVisible(false);
+		getCachePath();
 
 		dbShow = false;
 
@@ -447,6 +471,7 @@ public void press(MouseEvent event) throws IOException {
 
 
 	public void loadInMainPane(AnchorPane Apane, String minipane) throws IOException {
+		if(minipane.equals("Kits de migration")) minipane = "Kits_de_migration";
 		FXMLLoader fxmlLoader = new FXMLLoader(
 				getClass().getResource("/com/sopraMdv/anotherProject/view/" + minipane + ".fxml"));
 		fxmlLoader.setControllerFactory(AnotherProjectApplication.springContext::getBean);
@@ -528,7 +553,8 @@ public void press(MouseEvent event) throws IOException {
 							session.setCnx(session.getCnxNew());
 							if (session.getCnx() != null) {
 								loadInMainPane(mainController.getViewPane(), "ExecuteInterface");
-								executefile.executeScript();
+								historiqueController.executeKit();
+								//executefile.executeScript();
 							}
 
 						}
@@ -586,7 +612,7 @@ public void press(MouseEvent event) throws IOException {
 				session.setScanner(null);
 				session.setIdFile(null);
 				session.setCnx(null);
-				session.setLine(0L);
+				session.setLine(null);
 				if (mainController.getDirectory().getName().equals("Cache")) {
 					mainController.setDirectory(null);
 					mainController.getTreeView().setRoot(null);
@@ -595,6 +621,7 @@ public void press(MouseEvent event) throws IOException {
 				stopBtn.setVisible(false);
 //				dbChooser.setVisible(false);
 				executebtn.setVisible(false);
+				service.cancel();
 				loadInMainPane(mainpane, "Historique");
 			}
 		}
@@ -654,26 +681,30 @@ public void press(MouseEvent event) throws IOException {
 //	}
 
 	public String getCachePath() {
-		String myDocuments = null;
-
-		try {
-			Process p = Runtime.getRuntime().exec(
-					"reg query \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders\" /v personal");
-			p.waitFor();
-
-			InputStream in = p.getInputStream();
-			byte[] b = new byte[in.available()];
-			in.read(b);
-			in.close();
-
-			myDocuments = new String(b);
-			myDocuments = myDocuments.split("\\s\\s+")[4];
-
-		} catch (Throwable t) {
-			t.printStackTrace();
-		}
-
-		return myDocuments;
+//		String myDocuments = null;
+//
+//		try {
+//			Process p = Runtime.getRuntime().exec(
+//					"reg query \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders\" /v personal");
+//			p.waitFor();
+//
+//			InputStream in = p.getInputStream();
+//			byte[] b = new byte[in.available()];
+//			in.read(b);
+//			in.close();
+//
+//			myDocuments = new String(b);
+//			myDocuments = myDocuments.split("\\s\\s+")[4];
+//			session.setAppLogPath(myDocuments);
+//
+//		} catch (Throwable t) {
+//			t.printStackTrace();
+//		}
+//
+//		return myDocuments;
+		String path = System.getProperty("user.home");
+		session.setAppLogPath(path);
+		return path;
 	}
 
 }

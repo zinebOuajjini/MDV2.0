@@ -48,8 +48,10 @@ import javafx.stage.FileChooser;
 
 @Controller
 public class MainController {
+	
+	private static final String PathSeparator = System.getProperty("file.separator");
 
-	String initFolder = System.getProperty("user.home") + "\\Desktop";
+	String initFolder = System.getProperty("user.home") + ""+PathSeparator+"Desktop";
 
 	private File directory = Paths.get(initFolder).toFile();
 

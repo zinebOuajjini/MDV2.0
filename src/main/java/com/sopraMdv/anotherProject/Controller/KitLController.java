@@ -5,7 +5,6 @@ import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import com.sopraMdv.anotherProject.dao.DataBaseDAO;
 import com.sopraMdv.anotherProject.dao.KitDAO;
 import com.sopraMdv.anotherProject.entities.Kit;
 
@@ -17,26 +16,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 @Controller
-public class KitListController {
-
+public class KitLController {
+	
+	
 	@FXML
 	private Pane listelements;
-
-
-
-	private DataBaseDAO dbDAO;
-
-	public DataBaseDAO getDbDAO() {
-		return dbDAO;
-	}
-
-	@Autowired
-	public void setDbDAO(DataBaseDAO dbDAO) {
-		this.dbDAO = dbDAO;
-	}
-
+	
 	private Session session;
-
+	
 	private KitDAO kitDao;
 
 	public KitDAO getKitDao() {
@@ -46,45 +33,15 @@ public class KitListController {
 	public void setKitDao(KitDAO kitDao) {
 		this.kitDao = kitDao;
 	}
-
+	
 	private WelcomeController welcomecontroller;
 
 	@Autowired
 	public void setWelcomecontroller(WelcomeController welcomecontroller) {
 		this.welcomecontroller = welcomecontroller;
 	}
-
-	public Session getSession() {
-		return session;
-	}
-
-	private MainController mainController;
-
-	public MainController getMainController() {
-		return mainController;
-	}
-
-	@Autowired
-	public void setMainController(MainController mainController) {
-		this.mainController = mainController;
-	}
-
-	private ExecuteFileController executefile;
-
-	public ExecuteFileController getExecutefile() {
-		return executefile;
-	}
-
-	@Autowired
-	public void setExecutefile(ExecuteFileController executefile) {
-		this.executefile = executefile;
-	}
-
-	@Autowired
-	public void setSession(Session session) {
-		this.session = session;
-	}
-
+	
+	
 	@FXML
 	private void initialize() {
 		
@@ -94,7 +51,7 @@ public class KitListController {
 		
 		try {
 			for (Kit element : kitDao.findAll()) {
-				//System.out.println(element);
+				System.out.println(element);
 				AddElement(element);
 				
 			}
@@ -105,7 +62,8 @@ public class KitListController {
 		}
 
 	}
-
+	
+	
 	public void AddElement(Kit kit) throws IOException {
 
 		AnchorPane element = new AnchorPane();
@@ -116,8 +74,6 @@ public class KitListController {
 
 		Label nom = (Label) element.lookup("#nomKit");
 		nom.setText(kit.getNomKit());
-		Label kitDescription = (Label) element.lookup("#description");
-		kitDescription.setText(kit.getDescriptionKit());
 		Label idk = (Label) element.lookup("#idlabel");
 		idk.setText(kit.getId().toString());
 		Label chosebtn = (Label) element.lookup("#chosebtn");
@@ -141,8 +97,7 @@ public class KitListController {
 	
 	@FXML
 	public void createKit() throws IOException {
-		welcomecontroller.loadInMainPane(welcomecontroller.getMainpane(), "Creation_Kit");
+		welcomecontroller.loadInMainPane(welcomecontroller.getMainpane(), "Kit");
 	}
-	
 
 }

@@ -79,7 +79,7 @@ public class AuthentificationController {
 	}
 
 	public void premoving(MouseEvent mouseEvent) {
-
+		
 		// record a delta distance for the drag and drop operation.
 		x = (double) (controlPane.getScene().getWindow().getX() - mouseEvent.getScreenX());
 		y = (double) (controlPane.getScene().getWindow().getY() - mouseEvent.getScreenY());
